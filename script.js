@@ -4,21 +4,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const slideshowContainer = document.querySelector('.slideshow-container');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
-    const indicatorsContainer = document.querySelector('.slideshow-indicators'); // Get indicators container
+    const indicatorsContainer = document.querySelector('.slideshow-indicators');
     let slideshowInterval;
 
     function updateIndicators() {
-        indicatorsContainer.innerHTML = ''; // Clear previous indicators
+        indicatorsContainer.innerHTML = '';
         for (let i = 0; i < listOfImages.length; i++) {
             const indicator = document.createElement('span');
             indicator.addEventListener('click', () => {
                 clearInterval(slideshowInterval);
                 slideIndex = i;
-                changeSlide(0); // Go to clicked slide
+                changeSlide(0);
                 startSlideshow();
             });
             if (i === slideIndex) {
-                indicator.classList.add('active'); // Highlight current slide's indicator
+                indicator.classList.add('active');
             }
             indicatorsContainer.appendChild(indicator);
         }
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const aspectRatio = slideshowImage.naturalWidth / slideshowImage.naturalHeight;
             slideshowContainer.style.aspectRatio = aspectRatio;
             slideshowImage.style.opacity = 1;
-            updateIndicators(); // Update indicators after slide change
+            updateIndicators();
         };
 
         setTimeout(() => {
@@ -66,7 +66,27 @@ document.addEventListener('DOMContentLoaded', function() {
         changeSlide(1);
     });
 
-    updateIndicators(); // Initial indicator creation
+    updateIndicators();
     startSlideshow();
     changeSlide(0);
+
+    // Form Validation Logic
+    const orderForm = document.querySelector('form');
+    orderForm.addEventListener('submit', function(event) {
+        let isValid = true;
+        let errorMessages = [];
+
+        for (const fieldId of requiredFields) {
+            const inputField = document.getElementById(fieldId);
+            if (!inputField.value.trim()) {
+                isValid = false;
+                errorMessages.push(inputField.previousElementSibling.textContent.slice(0, -1)); // Get label text (remove colon)
+            }
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission
+            alert("Please fill in the following required fields:\n" + errorMessages.join(", ")); // Display error message
+        }
+    });
 });
