@@ -91,7 +91,7 @@ header {
         max-height: none;
     }
     .slideshow-area {
-        height: 40vh;
+        height: 30vh; /*  <----- REDUCED height to 30vh for mobile */
     }
     .form-area {
         height: auto;
