@@ -3,16 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Slideshow</title>
+    <title>Simple Slideshow with Form</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="slideshow-container">
-        <img id="slideshow-image" src="" alt="Slideshow Image">
-        <div class="slideshow-controls">
-            <button id="prev-button" aria-label="Previous Slide">&#10094;</button> <button id="next-button" aria-label="Next Slide">&#10095;</button>
+    <div class="container"> <div class="form-area">
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number (Optional):</label>
+                    <input type="tel" id="contactNumber" name="contactNumber">
+                </div>
+                <div class="form-group">
+                    <label for="orderDescription">Order Description:</label>
+                    <textarea id="orderDescription" name="orderDescription" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit Order</button>
+                </div>
+            </form>
         </div>
-        <div class="slideshow-indicators">
+        <div class="slideshow-area">
+            <div class="slideshow-container">
+                <img id="slideshow-image" src="" alt="Slideshow Image">
+                <div class="slideshow-controls">
+                    <button id="prev-button" aria-label="Previous Slide">&#10094;</button>
+                    <button id="next-button" aria-label="Next Slide">&#10095;</button>
+                </div>
+                <div class="slideshow-indicators"></div>
+            </div>
         </div>
     </div>
     <script src="images.js"></script>
