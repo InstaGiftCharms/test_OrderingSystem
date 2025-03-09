@@ -89,4 +89,14 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Please fill in the following required fields:\n" + errorMessages.join(", ")); // Display error message
         }
     });
+
+    // Populate Shipping Options Dropdown
+    const shippingOptionsDropdown = document.getElementById('shippingOption');
+
+    shippingOptions.forEach(optionText => {
+        const optionElement = document.createElement('option');
+        optionElement.value = optionText; // Value and text are the same for simplicity
+        optionElement.textContent = optionText;
+        shippingOptionsDropdown.appendChild(optionElement);
+    });
 });
