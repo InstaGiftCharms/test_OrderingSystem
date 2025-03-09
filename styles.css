@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.slideshow-container {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .slideshow-container {
+        width: 95%;
+        margin: 10px;
+    }
+}
+
+#slideshow-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+    object-fit: cover;
+}
+
+.slideshow-controls {
+    position: absolute;
+    top: 50%; /* Vertically center */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between; /* Space controls apart */
+    align-items: center; /* Vertically align items */
+    transform: translateY(-50%); /* Fine-tune vertical centering */
+    padding: 0 10px; /* Add some horizontal padding */
+}
+
+.slideshow-controls button {
+    background: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+    border: none;
+    border-radius: 50%; /* Make them circular */
+    width: 40px; /* Adjust size as needed */
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em; /* Adjust icon size */
+    color: #333; /* Icon color */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Hover effect transition */
+}
+
+.slideshow-controls button:hover {
+    background-color: rgba(255, 255, 255, 0.8); /* Darken on hover */
+}
+
+.slideshow-controls button:focus {
+    outline: none; /* Remove default focus outline */
+    background-color: rgba(255, 255, 255, 0.9); /* Even darker on focus/active */
+}
+
+
+.slideshow-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px; /* Spacing between dots */
+}
+
+.slideshow-indicators span {
+    display: block;
+    width: 12px; /* Dot size */
+    height: 12px;
+    border-radius: 50%; /* Make them dots */
+    background-color: rgba(200, 200, 200, 0.8); /* Light gray dots */
+    cursor: pointer; /* Indicate they are clickable if you make them interactive later */
+    transition: background-color 0.3s ease;
+}
+
+.slideshow-indicators span.active {
+    background-color: rgba(100, 100, 100, 0.9); /* Darker dot for active slide */
+}
