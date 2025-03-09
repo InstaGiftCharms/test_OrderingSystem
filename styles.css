@@ -9,20 +9,19 @@ body {
 }
 
 .container {
-    display: flex; /* Flex container for form and slideshow - Desktop layout */
+    display: flex;
     width: 80%;
-    max-width: 1200px; /* Wider max width for two components */
+    max-width: 1200px;
     margin: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
-    background-color: white; /* White background for the whole container */
+    background-color: white;
 }
 
-/* Mobile Layout - Stack form and slideshow vertically */
-@media (max-width: 768px) { /* Adjust breakpoint as needed */
+@media (max-width: 768px) {
     .container {
-        flex-direction: column; /* Stack vertically on smaller screens */
+        flex-direction: column;
         width: 95%;
         margin: 10px;
     }
@@ -30,36 +29,35 @@ body {
 
 .form-area {
     padding: 20px;
-    width: 40%; /* Form takes 40% width on desktop */
-    box-sizing: border-box; /* Include padding in width calculation */
+    width: 40%;
+    box-sizing: border-box;
 }
 
 .slideshow-area {
-    width: 60%; /* Slideshow takes 60% width on desktop */
+    width: 60%;
     box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
     .form-area, .slideshow-area {
-        width: 100%; /* Full width on mobile */
+        width: 100%;
     }
     .slideshow-area {
-        height: 40vh; /* Slideshow takes 40% viewport height on mobile */
+        height: 40vh;
     }
     .form-area {
-        height: 60vh; /* Form takes 60% viewport height on mobile */
-        overflow-y: auto; /* Allow scrolling in form area if content is too long */
+        height: 60vh;
+        overflow-y: auto;
     }
 }
 
-
-/* Form Styles */
+/* Form Styles - Adjusted */
 .form-group {
     margin-bottom: 15px;
 }
 
 .form-group label {
-    display: block;
+    display: block; /* Ensure labels are on their own line */
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
@@ -67,25 +65,32 @@ body {
 
 .form-group input[type="text"],
 .form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group textarea {
-    width: calc(100% - 20px); /* Full width minus padding */
+.form-group input[type="tel"] {
+    width: 100%; /* **Important:** Make inputs full width of form-group */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
     box-sizing: border-box; /* Ensure padding is inside the width */
+    display: block; /* **Important:** Ensure inputs are block-level elements */
 }
 
 .form-group textarea {
-    resize: vertical; /* Allow vertical resizing of textarea */
+    width: 100%; /* **Important:** Make textarea full width of form-group */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    resize: vertical;
+    display: block; /* **Important:** Ensure textarea is block-level element */
 }
 
 .form-group button[type="submit"] {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff; /* Example submit button color */
+    background-color: #007bff;
     color: white;
     font-size: 1.1em;
     cursor: pointer;
@@ -97,13 +102,13 @@ body {
 }
 
 
-/* Slideshow Styles (Existing - No changes needed, just included for completeness) */
+/* Slideshow Styles (Existing - No changes needed) */
 .slideshow-container {
     position: relative;
-    width: 100%; /* Take full width of slideshow-area */
-    height: 100%; /* Take full height of slideshow-area */
-    border-radius: 0; /* Remove border-radius inside container */
-    box-shadow: none; /* Remove box-shadow inside container */
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
     overflow: hidden;
 }
 
