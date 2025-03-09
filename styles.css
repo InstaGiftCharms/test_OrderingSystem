@@ -4,9 +4,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /*  <----- KEPT for desktop */
     background-color: #F8E3C8;
-    overflow: hidden;
+    overflow: hidden; /*  <----- KEPT for desktop */
 }
 
 header {
