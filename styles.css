@@ -76,7 +76,7 @@ header {
     width: 40%;
     box-sizing: border-box;
     background-color: white;
-    overflow-y: auto;
+    overflow-y: auto; /*  <----- KEPT for desktop - internal scrolling on desktop */
     max-height: 100%;
 }
 
@@ -95,7 +95,7 @@ header {
     }
     .form-area {
         height: auto;
-        overflow-y: auto;
+        /* overflow-y: auto;  <----- REMOVED for mobile - disable internal scrolling on mobile */
     }
 }
 
