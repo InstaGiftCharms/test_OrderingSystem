@@ -2,17 +2,52 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #F8E3C8;
+    overflow: hidden; /* Prevent global scrolling */
 }
+
+header {
+    padding: 20px 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    max-width: 150px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin-right: 15px;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        display: none;
+    }
+    header {
+        padding: 10px 0;
+    }
+}
+
+.store-title {
+    font-size: 2.2em;
+    color: #333;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
 
 .container {
     display: flex;
     width: 80%;
     max-width: 1200px;
-    margin: 20px;
+    margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
@@ -21,17 +56,23 @@ body {
 
 @media (max-width: 768px) {
     .container {
-        flex-direction: column-reverse; /* Changed to column-reverse! */
+        flex-direction: column-reverse;
         width: 95%;
         margin: 10px;
     }
+    header {
+        padding: 10px 0;
+    }
+
 }
 
 .form-area {
     padding: 20px;
     width: 40%;
     box-sizing: border-box;
-    background-color: white; /* Ensure form area has white background */
+    background-color: white;
+    overflow-y: auto; /* Enable vertical scrolling for form area */
+    max-height: 80vh; /* Optional: Limit max height of form area to 80% of viewport */
 }
 
 .slideshow-area {
@@ -42,23 +83,24 @@ body {
 @media (max-width: 768px) {
     .form-area, .slideshow-area {
         width: 100%;
+        max-height: none; /* Remove max-height on mobile so form can take full height if needed */
     }
     .slideshow-area {
         height: 40vh;
     }
     .form-area {
-        height: 60vh;
-        overflow-y: auto;
+        height: auto; /* Let form area height adjust to content on mobile */
+        overflow-y: auto; /* Keep scroll for mobile form area */
     }
 }
 
-/* Form Styles - Adjusted */
+/* Form Styles - Adjusted Colors */
 .form-group {
     margin-bottom: 15px;
 }
 
 .form-group label {
-    display: block; /* Ensure labels are on their own line */
+    display: block;
     margin-bottom: 5px;
     font-weight: bold;
     color: #555;
@@ -67,24 +109,24 @@ body {
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"] {
-    width: 100%; /* **Important:** Make inputs full width of form-group */
+    width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1em;
-    box-sizing: border-box; /* Ensure padding is inside the width */
-    display: block; /* **Important:** Ensure inputs are block-level elements */
+    box-sizing: border-box;
+    display: block;
 }
 
 .form-group textarea {
-    width: 100%; /* **Important:** Make textarea full width of form-group */
+    width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1em;
     box-sizing: border-box;
     resize: vertical;
-    display: block; /* **Important:** Ensure textarea is block-level element */
+    display: block;
 }
 
 .form-group button[type="submit"] {
@@ -103,7 +145,7 @@ body {
 }
 
 
-/* Slideshow Styles (Existing - No changes needed) */
+/* Slideshow Styles (Adjusted Indicator Colors) */
 .slideshow-container {
     position: relative;
     width: 100%;
@@ -136,7 +178,7 @@ body {
 }
 
 .slideshow-controls button {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.7);
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -145,18 +187,18 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 1.5em;
-    color: #333;
+    color: #444;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .slideshow-controls button:hover {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .slideshow-controls button:focus {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 
@@ -174,11 +216,11 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: rgba(200, 200, 200, 0.8);
+    background-color: rgba(220, 220, 220, 0.8);
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .slideshow-indicators span.active {
-    background-color: rgba(100, 100, 100, 0.9);
+    background-color: rgba(120, 120, 120, 0.9);
 }
