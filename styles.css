@@ -21,7 +21,7 @@ body {
 
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
+        flex-direction: column-reverse; /* Changed to column-reverse! */
         width: 95%;
         margin: 10px;
     }
@@ -31,6 +31,7 @@ body {
     padding: 20px;
     width: 40%;
     box-sizing: border-box;
+    background-color: white; /* Ensure form area has white background */
 }
 
 .slideshow-area {
