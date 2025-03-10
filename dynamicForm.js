@@ -1,4 +1,4 @@
-// dynamicform.js
+// dynamicform.js (Full Code - Corrected for <label for> accessibility)
 class DynamicForm {
     static drawform(formObjectArray) {
         let formHTML = '<form>';
@@ -82,22 +82,25 @@ class DynamicForm {
 
 
     static #createLabel(id, text) {
-        return `<label for="${id}" class="dynamic-form-label">${text}</label><br>`; // Added class
+        return `<label for="${id}" class="dynamic-form-label">${text}</label><br>`; // Label class already added
     }
 
     static #createTextbox(id, placeholder) {
-        return `<input type="text" id="${id}" name="${id}" placeholder="${placeholder}" class="dynamic-form-input"><br>`; // Added class
+        return `<input type="text" id="${id}" name="${id}" placeholder="${placeholder}" class="dynamic-form-input"><br>`; // Input class already added
     }
 
     static #createRadioButtons(id, optionsString) {
         let radioHTML = '';
         const options = optionsString.split(';');
         for (const option of options) {
-            const radioId = `${id}_${option.replace(/\s/g, '_')}`;
+            // Generate unique ID for each radio button AND its label
+            const radioId = `${id}_${option.replace(/\s/g, '_')}`; // More likely to be unique
             radioHTML += `
-                <input type="radio" id="${radioId}" name="${id}" value="${option}" class="dynamic-form-input">
-                <label for="${radioId}" class="dynamic-form-label">${option}</label>&nbsp;
-            `; // Added classes to input and label
+                <div class="radio-checkbox-option">
+                    <input type="radio" id="${radioId}" name="${id}" value="${option}" class="dynamic-form-input">
+                    <label for="${radioId}" class="dynamic-form-label">${option}</label>
+                </div>
+            `; // Corrected: label 'for' matches input 'id'
         }
         radioHTML += '<br>';
         return radioHTML;
@@ -107,11 +110,14 @@ class DynamicForm {
         let checkboxHTML = '';
         const options = optionsString.split(';');
         for (const option of options) {
-            const checkboxId = `${id}_${option.replace(/\s/g, '_')}`;
+            // Generate unique ID for each checkbox AND its label
+            const checkboxId = `${id}_${option.replace(/\s/g, '_')}`; // More likely to be unique
             checkboxHTML += `
-                <input type="checkbox" id="${checkboxId}" name="${id}" value="${option}" class="dynamic-form-input">
-                <label for="${checkboxId}" class="dynamic-form-label">${option}</label>&nbsp;
-            `; // Added classes to input and label
+                <div class="radio-checkbox-option">
+                    <input type="checkbox" id="${checkboxId}" name="${id}" value="${option}" class="dynamic-form-input">
+                    <label for="${checkboxId}" class="dynamic-form-label">${option}</label>
+                </div>
+            `; // Corrected: label 'for' matches input 'id'
         }
         checkboxHTML += '<br>';
         return checkboxHTML;
@@ -119,6 +125,6 @@ class DynamicForm {
 
     // New private method for creating quantity input
     static #createQuantity(id, placeholder) {
-        return `<input type="number" id="${id}" name="${id}" placeholder="${placeholder}" value="0" class="dynamic-form-input"><br>`; // Added class
+        return `<input type="number" id="${id}" name="${id}" placeholder="${placeholder}" value="0" class="dynamic-form-input"><br>`; // Input class already added
     }
 }
