@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Slideshow functionality
     let slideIndex = 0;
-    const slides = ConfigParameters.slideshowImages; // Access static property using class name
+    const slides = ConfigParameters.slideshowImages; // Access static property using class name 
     const slideshowImage = document.getElementById('slideshow-image');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
