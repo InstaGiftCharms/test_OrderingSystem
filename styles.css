@@ -43,6 +43,7 @@ header {
     font-weight: 600;
 }
 
+
 .container {
     display: flex;
     width: 80%;
@@ -296,3 +297,25 @@ header {
     scrollbar-color: #aaa #f1f1f1;  /* thumb-color track-color */
     /* scrollbar-width: thin;  /* 'auto' or 'thin' or 'none' */
 /* } */
+
+/* Total Order Price Area Styling */
+.order-total-area {
+    text-align: right; /* Align price to the right */
+    margin-top: 15px;  /* Add some space above */
+    margin-bottom: 15px; /* Add some space below */
+    padding-top: 10px;
+    border-top: 1px solid #ddd; /* Top border for visual separation */
+}
+
+.order-total-area label {
+    font-size: 1.1em; /* Slightly larger than regular labels */
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px; /* Space between label and price */
+}
+
+.order-total-area .price-value {
+    font-size: 1.2em; /* Even larger for price value */
+    color: #007bff;    /* Brand color or a color to emphasize price */
+    font-weight: bold; /* Make price value bold */
+}
