@@ -19,4 +19,8 @@ class ConfigParameters {
         "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)",
         "Standard Shipping"
     ];
+    static shippingOptionText = "Please select the most suitable shipping option for your order:\n\n" +
+                                 "**Pickup in-person:** Select this if you will pick up your order directly from our store. We will notify you when it's ready for collection.\n\n" +
+                                 "**Pickup via On-Demand Delivery (Lalamove, Grab, etc.):** Choose this to arrange for a service like Lalamove or Grab to collect your order from our store and deliver to you. You book and pay for this service.\n\n" +
+                                 "**Standard Shipping:** Select this to have your order shipped to your address via postal service. Shipping fees and delivery times will apply.";
 }
