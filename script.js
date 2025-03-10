@@ -54,12 +54,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Shipping Options population
     const shippingSelect = document.getElementById('shippingOption');
-    ConfigParameters.shippingOptions.forEach(optionText => { // Access static property using class name
+    ConfigParameters.shippingOptions.forEach(optionText => {
         const optionElement = document.createElement('option');
         optionElement.value = optionText;
         optionElement.textContent = optionText;
         shippingSelect.appendChild(optionElement);
     });
+
+    // Populate Shipping Option Explanation Text
+    const shippingExplanationElement = document.getElementById('shipping-options-explanation');
+    if (shippingExplanationElement) {
+        shippingExplanationElement.textContent = ConfigParameters.shippingOptionText;
+    } else {
+        console.error("Shipping explanation element with ID 'shipping-options-explanation' not found in index.html");
+    }
+
 
     // --- Conditional Display Logic for Shipping Address ---
     const shippingOptionSelect = document.getElementById('shippingOption');
@@ -72,8 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         shippingOptionSelect.addEventListener('change', function() {
             const selectedOptionText = shippingOptionSelect.options[shippingOptionSelect.selectedIndex].text;
-            const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping'); 
-            
+            const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping');
+
             if (showShippingAddress) {
                 shippingAddressGroup.style.display = 'block';
             } else {
