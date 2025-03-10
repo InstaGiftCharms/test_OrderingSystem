@@ -319,3 +319,24 @@ header {
     color: #007bff;    /* Brand color or a color to emphasize price */
     font-weight: bold; /* Make price value bold */
 }
+
+/* Add to Cart Button Styling */
+.add-cart-button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 50px; /* Pill-shaped button, same as Submit */
+    background-color: #28a745; /* Green color, distinct from Submit button */
+    color: white;
+    font-size: 1.1em; /* Same font size as Submit */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-cart-button:hover {
+    background-color: #1e7e34; /* Darker green on hover */
+}
+
+.add-cart-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.5); /* Optional: add focus outline */
+}
