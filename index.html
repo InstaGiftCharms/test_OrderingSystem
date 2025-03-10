@@ -35,6 +35,22 @@
                     <hr>
                 </div>
 
+                <div class="form-group">
+                    <label for="productSelection">Product Selection:</label>
+                    <select id="productSelection" name="productSelection" required>
+                        <option value="" disabled selected class="placeholder-option">Select a Product</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="dynamic-form-area">
+                    {/* Dynamic form will be generated here */}
+                </div>
+
+                <div class="form-group">
+                    <button type="button" id="add-to-cart-button">Add to Cart</button>
+                </div>
+
+
                 <div class="form-group subsection-header">
                     <h3>User Cart</h3>
                     <hr>
@@ -43,13 +59,21 @@
                 <div class="form-group">  <p id="shipping-options-explanation"></p> </div>  <div class="form-group">
                     <label for="shippingOption">Shipping Option:</label>
                     <select id="shippingOption" name="entry.566989990" required>
-                        <option value="" disabled selected class="placeholder-option">Select Delivery Option</option>
+                        <option value="" disabled selected class="placeholder-option">Select Shipping Option</option>
                         </select>
                 </div>
 
+                <div class="form-group">
+                    <hr>
+                </div>
                 <div class="form-group">  <label for="shippingAddress">Shipping Address:</label>  <textarea id="shippingAddress" name="entry.517606747" rows="4" required></textarea> </div>
 
-                <div class="form-group order-total-area"> <hr>  <label>Total Order Price:</label>  <span id="order-total-price-value" class="price-value">PHP 0.00</span> </div>  <div class="form-group">
+                <div class="form-group order-total-area">
+                    <hr>
+                    <label>Total Order Price:</label>
+                    <span id="order-total-price-value" class="price-value">PHP 0.00</span>
+                </div>
+                <div class="form-group">
                     <label for="orderDescription">Order Description:</label>
                     <textarea id="orderDescription" name="entry.2067952634" rows="5"></textarea>
                 </div>
