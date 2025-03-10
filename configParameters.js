@@ -14,10 +14,10 @@ class ConfigParameters {
         "shippingOption",
         "orderDescription"
     ];
-    static shippingOptions = [
-        "Pickup in-person",
-        "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)",
-        "Standard Shipping"
+    static shippingOptions = [ // Changed to Javascript object array
+        { optionName: "Pickup in-person", optionCost: 0 },
+        { optionName: "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)", optionCost: 0 },
+        { optionName: "Standard Shipping", optionCost: 250 }
     ];
     static shippingOptionText = [  // Changed to an array of strings
         "Please select the most suitable shipping option for your order:",
