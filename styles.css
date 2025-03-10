@@ -368,19 +368,19 @@ div.radio-checkbox-option label.dynamic-form-label { /*  <----- CORRECTED and MO
 }
 
 
-/* Specifically style number inputs to match text inputs - Corrected Styling */
-.dynamic-form-area input[type="number"].dynamic-form-input { /* CORRECTED SELECTOR with .dynamic-form-input class */
-    width: calc(100% - 20px); /* Slightly wider now that radio/checkbox margin is removed from general rule */
+/* Corrected Number Input Styling - Using #dynamic-form-area ID */
+#dynamic-form-area input[type="number"].dynamic-form-input { /*  <----- CORRECTED SELECTOR using #dynamic-form-area ID */
+    width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 25px;
     font-size: 1em;
     box-sizing: border-box;
-    display: block; /* Keep as block for full width */
+    display: block;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin-bottom: 10px; /* Add bottom margin for spacing */
+    margin-bottom: 10px;
 }
 
 /* Optional: Adjust spacing for radio and checkboxes in form-group - KEPT */
