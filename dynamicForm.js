@@ -20,6 +20,9 @@ class DynamicForm {
         case 'checkbox':
           formHTML += DynamicForm.#createCheckboxes(id, value);
           break;
+        case 'quantity': // New case for quantity
+          formHTML += DynamicForm.#createQuantity(id, value);
+          break;
         default:
           console.warn(`Unknown form element type: ${type}`);
           break;
@@ -41,6 +44,7 @@ class DynamicForm {
 
       switch (type) {
         case 'textbox':
+        case 'quantity': // Quantity type also gets textbox value
           const textboxElement = document.getElementById(id);
           if (textboxElement) {
             valueOut = textboxElement.value;
@@ -110,5 +114,10 @@ class DynamicForm {
     }
     checkboxHTML += '<br>';
     return checkboxHTML;
+  }
+
+  // New private method for creating quantity input
+  static #createQuantity(id, placeholder) {
+    return `<input type="number" id="${id}" name="${id}" placeholder="${placeholder}" value="0"><br>`; // Default value set to 0
   }
 }
