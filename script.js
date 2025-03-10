@@ -61,9 +61,10 @@ document.addEventListener('DOMContentLoaded', function() {
         shippingSelect.appendChild(optionElement);
     });
 
-    // --- Conditional Display Logic for Shipping Address ---
+    // --- Conditional Display Logic for Shipping Address (DEBUGGING ADDED) ---
     const shippingOptionSelect = document.getElementById('shippingOption');
     const shippingAddressGroup = document.querySelector('.form-group:has(#shippingAddress)'); // Select the form-group containing shippingAddress
+
     if (!shippingAddressGroup) {
         console.error("Shipping Address form group not found. Ensure you have a .form-group containing #shippingAddress in your index.html");
     } else {
@@ -71,8 +72,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         shippingOptionSelect.addEventListener('change', function() {
             const selectedOptionText = shippingOptionSelect.options[shippingOptionSelect.selectedIndex].text;
-            console.log(selectedOptionText);
             const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping') || selectedOptionText.toLowerCase().includes('delivery');
+
+            console.log("Selected Shipping Option Text:", selectedOptionText); // DEBUGGING LINE
+            console.log("Show Shipping Address:", showShippingAddress);     // DEBUGGING LINE
+            console.log("Shipping Address Group Element:", shippingAddressGroup); // DEBUGGING LINE
 
             if (showShippingAddress) {
                 shippingAddressGroup.style.display = 'block'; // Show if "shipping" or "delivery" is in the option
