@@ -1,102 +1,83 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Slideshow functionality (existing code - keep this)
     let slideIndex = 0;
+    const slides = configParameters.slideshowImages;
     const slideshowImage = document.getElementById('slideshow-image');
-    const slideshowContainer = document.querySelector('.slideshow-container');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
     const indicatorsContainer = document.querySelector('.slideshow-indicators');
-    let slideshowInterval;
 
-    function updateIndicators() {
-        indicatorsContainer.innerHTML = '';
-        for (let i = 0; i < listOfImages.length; i++) {
-            const indicator = document.createElement('span');
-            indicator.addEventListener('click', () => {
-                clearInterval(slideshowInterval);
-                slideIndex = i;
-                changeSlide(0);
-                startSlideshow();
+    function updateSlide(index) {
+        slideshowImage.src = slides[index];
+        slideshowImage.alt = `Slide ${index + 1}`;
+
+        // Update indicators (if you have them)
+        const indicators = indicatorsContainer.querySelectorAll('span');
+        indicators.forEach(span => span.classList.remove('active'));
+        indicators[index].classList.add('active');
+    }
+
+    function createIndicators() {
+        slides.forEach((_, index) => {
+            const span = document.createElement('span');
+            span.addEventListener('click', () => {
+                slideIndex = index;
+                updateSlide(slideIndex);
             });
-            if (i === slideIndex) {
-                indicator.classList.add('active');
-            }
-            indicatorsContainer.appendChild(indicator);
-        }
+            indicatorsContainer.appendChild(span);
+        });
     }
 
 
-    function changeSlide(direction) {
-        clearInterval(slideshowInterval);
-
-        slideIndex += direction;
-
-        if (slideIndex < 0) {
-            slideIndex = listOfImages.length - 1;
-        } else if (slideIndex >= listOfImages.length) {
-            slideIndex = 0;
-        }
-
-        slideshowImage.style.opacity = 0;
-
-        slideshowImage.onload = function() {
-            const aspectRatio = slideshowImage.naturalWidth / slideshowImage.naturalHeight;
-            slideshowContainer.style.aspectRatio = aspectRatio;
-            slideshowImage.style.opacity = 1;
-            updateIndicators();
-        };
-
-        setTimeout(() => {
-            slideshowImage.src = listOfImages[slideIndex];
-        }, 500);
-
-        startSlideshow();
+    function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        updateSlide(slideIndex);
     }
 
-    function startSlideshow() {
-        slideshowInterval = setInterval(() => {
-            changeSlide(1);
-        }, timeEachSlide);
+    function prevSlide() {
+        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+        updateSlide(slideIndex);
     }
 
-    prevButton.addEventListener('click', () => {
-        changeSlide(-1);
-    });
+    if (slides && slides.length > 0) {
+        createIndicators();
+        updateSlide(slideIndex); // Initialize to first slide
+        setInterval(nextSlide, configParameters.slideshowInterval); // Auto advance
 
-    nextButton.addEventListener('click', () => {
-        changeSlide(1);
-    });
+        nextButton.addEventListener('click', nextSlide);
+        prevButton.addEventListener('click', prevSlide);
+    } else {
+        console.warn("No slideshow images provided in configParameters.js");
+        // Consider hiding slideshow or displaying a placeholder image
+    }
 
-    updateIndicators();
-    startSlideshow();
-    changeSlide(0);
 
-    // Form Validation Logic
-    const orderForm = document.querySelector('form');
-    orderForm.addEventListener('submit', function(event) {
-        let isValid = true;
-        let errorMessages = [];
-
-        for (const fieldId of requiredFields) {
-            const inputField = document.getElementById(fieldId);
-            if (!inputField.value.trim()) {
-                isValid = false;
-                errorMessages.push(inputField.previousElementSibling.textContent.slice(0, -1)); // Get label text (remove colon)
-            }
-        }
-
-        if (!isValid) {
-            event.preventDefault(); // Prevent form submission
-            alert("Please fill in the following required fields:\n" + errorMessages.join(", ")); // Display error message
-        }
-    });
-
-    // Populate Shipping Options Dropdown
-    const shippingOptionsDropdown = document.getElementById('shippingOption');
-
-    shippingOptions.forEach(optionText => {
+    // Shipping Options population (existing code - keep this)
+    const shippingSelect = document.getElementById('shippingOption');
+    configParameters.shippingOptions.forEach(optionText => {
         const optionElement = document.createElement('option');
-        optionElement.value = optionText; // Value and text are the same for simplicity
-        optionElement.textContent = optionText;
-        shippingOptionsDropdown.appendChild(optionElement);
+        optionElement.value = optionText; // Set value to the option text
+        optionElement.textContent = optionText; // Display text
+        shippingSelect.appendChild(optionElement);
     });
+
+    // --- Conditional Display Logic for Shipping Address ---
+    const shippingOptionSelect = document.getElementById('shippingOption');
+    const shippingAddressGroup = document.querySelector('.form-group:has(#shippingAddress)'); // Select the form-group containing shippingAddress
+    if (!shippingAddressGroup) {
+        console.error("Shipping Address form group not found. Ensure you have a .form-group containing #shippingAddress in your index.html");
+    } else {
+        shippingAddressGroup.style.display = 'none'; // Initially hide it
+
+        shippingOptionSelect.addEventListener('change', function() {
+            const selectedOptionText = shippingOptionSelect.options[shippingOptionSelect.selectedIndex].text;
+            const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping') || selectedOptionText.toLowerCase().includes('delivery');
+
+            if (showShippingAddress) {
+                shippingAddressGroup.style.display = 'block'; // Show if "shipping" or "delivery" is in the option
+            } else {
+                shippingAddressGroup.style.display = 'none';  // Hide otherwise
+            }
+        });
+    }
 });
