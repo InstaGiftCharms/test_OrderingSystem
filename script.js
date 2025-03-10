@@ -1,7 +1,115 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Slideshow functionality
+    // --- Configuration Parameters (as before) ---
+    const ConfigParameters = {
+        slideshowImages: [
+            'images/slide1.jpg',
+            'images/slide2.jpg',
+            'images/slide3.jpg'
+        ],
+        slideshowInterval: 5000, // 5 seconds for slideshow interval
+        shippingOptions: [
+            { optionName: 'Standard Delivery', optionCost: 50 },
+            { optionName: 'Express Delivery', optionCost: 100 },
+            { optionName: 'Pickup in-person', optionCost: 0 },
+            { optionName: 'Pickup via On-Demand Delivery (Lalamove, Grab, etc.)', optionCost: 0 }
+        ],
+        shippingOptionText: [
+            "Choose your preferred shipping method.  ",
+            "For pick-up options, please coordinate schedule and pick-up point via chat after placing your order.",
+            "On-demand delivery (Lalamove, Grab, etc.) bookings should be initiated and paid for by the customer."
+        ],
+        productInfo: [
+            {
+                productName: 'Charm 1',
+                productForm: [
+                    {
+                        fieldName: 'charm1Color',
+                        fieldType: 'radio',
+                        fieldLabel: 'Color',
+                        fieldOptions: ['Red', 'Blue', 'Green']
+                    },
+                    {
+                        fieldName: 'charm1Quantity',
+                        fieldType: 'number',
+                        fieldLabel: 'Quantity',
+                        fieldPlaceholder: 'Quantity',
+                        fieldDefaultValue: 0
+                    }
+                ]
+            },
+            {
+                productName: 'Charm 2',
+                productForm: [
+                    {
+                        fieldName: 'charm2Engraving',
+                        fieldType: 'text',
+                        fieldLabel: 'Engraving Text',
+                        fieldPlaceholder: 'Enter engraving text'
+                    },
+                    {
+                        fieldName: 'charm2Color',
+                        fieldType: 'radio',
+                        fieldLabel: 'Color',
+                        fieldOptions: ['Red', 'Blue', 'Green']
+                    },
+                    {
+                        fieldName: 'charm2Quantity',
+                        fieldType: 'number',
+                        fieldLabel: 'Quantity',
+                        fieldPlaceholder: 'Quantity',
+                        fieldDefaultValue: 0
+                    }
+                ]
+            }
+            // ... more products can be added here ...
+        ]
+    };
+
+
+    // --- Dynamic Form Class (as before) ---
+    class DynamicForm {
+        static drawform(formConfig) {
+            let formHTML = '';
+            formConfig.forEach(field => {
+                formHTML += `<div class="form-group" id="dynamic-form-area">`; // OPENING form-group div here for all dynamic elements
+                formHTML += `<label for="${field.fieldName}Label" class="dynamic-form-label">${field.fieldLabel}:</label><br>`; // Label outside for better layout
+
+                if (field.fieldType === 'radio' || field.fieldType === 'checkbox') {
+                    field.fieldOptions.forEach(option => {
+                        formHTML += `
+                        <div class="radio-checkbox-option">
+                            <input type="${field.fieldType}" id="${field.fieldName}_${option}" name="${field.fieldName}" value="${option}" class="dynamic-form-input">
+                            <label for="${field.fieldName}_${option}" class="dynamic-form-label">${option}</label>
+                        </div>`;
+                    });
+                } else if (field.fieldType === 'number') {
+                    formHTML += `<input type="number" id="${field.fieldName}" name="${field.fieldName}" placeholder="${field.fieldPlaceholder}" value="${field.fieldDefaultValue}" class="dynamic-form-input"><br>`;
+                } else if (field.fieldType === 'text') {
+                    formHTML += `<input type="text" id="${field.fieldName}" name="${field.fieldName}" placeholder="${field.fieldPlaceholder}" class="dynamic-form-input"><br>`;
+                }
+                formHTML += `</div>`; // CLOSING form-group div here
+            });
+            return formHTML;
+        }
+
+         static getformData(formConfig) {
+            const formData = {};
+            formConfig.forEach(field => {
+                if (field.fieldType === 'radio' || field.fieldType === 'checkbox') {
+                    const checkedValue = document.querySelector(`input[name="${field.fieldName}"]:checked`);
+                    formData[field.fieldName] = checkedValue ? checkedValue.value : null;
+                } else if (field.fieldType === 'number' || field.fieldType === 'text') {
+                    formData[field.fieldName] = document.getElementById(field.fieldName).value;
+                }
+            });
+            return formData;
+        }
+    }
+
+
+    // Slideshow functionality (as before - no changes here)
     let slideIndex = 0;
-    const slides = ConfigParameters.slideshowImages; // Access static property using class name
+    const slides = ConfigParameters.slideshowImages;
     const slideshowImage = document.getElementById('slideshow-image');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
@@ -9,8 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateSlide(index) {
         slideshowImage.src = slides[index];
-        slideshowImage.alt = `Slide ${index + 1} of ${slides.length}`; // Alt text for accessibility
-        updateIndicators(index); // Update indicators to reflect current slide
+        slideshowImage.alt = `Slide ${index + 1} of ${slides.length}`;
+        updateIndicators(index);
     }
 
     function nextSlide() {
@@ -33,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             indicatorsContainer.appendChild(indicator);
         });
-        updateIndicators(0); // Highlight the first indicator initially
+        updateIndicators(0);
     }
 
     function updateIndicators(currentIndex) {
@@ -43,16 +151,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     nextButton.addEventListener('click', nextSlide);
     prevButton.addEventListener('click', prevSlide);
 
-    // Initialize slideshow
     createIndicators();
     updateSlide(slideIndex);
     setInterval(nextSlide, ConfigParameters.slideshowInterval);
 
-    // Populate shipping options dynamically
+    // Populate shipping options dynamically (as before - no changes here)
     const shippingOptionDropdown = document.getElementById('shippingOption');
     ConfigParameters.shippingOptions.forEach(option => {
         let optionElement = document.createElement('option');
@@ -61,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         shippingOptionDropdown.appendChild(optionElement);
     });
 
-    // Set Shipping Options Explanation Text
+    // Set Shipping Options Explanation Text (as before - no changes here)
     const shippingExplanation = document.getElementById('shipping-options-explanation');
     let explanationHTML = '';
     ConfigParameters.shippingOptionText.forEach(paragraph => {
@@ -70,25 +176,20 @@ document.addEventListener('DOMContentLoaded', function() {
     shippingExplanation.innerHTML = explanationHTML;
 
 
-    // --- Function to Calculate and Display Total Order Price ---
+    // --- Function to Calculate and Display Total Order Price (as before - no changes here) ---
     function calculateOrderTotal() {
         let subtotal = 0;
 
-        // --- Get Dynamic Form Data and Calculate Subtotal ---
         const productSelection = document.getElementById('productSelection').value;
         if (productSelection) {
             const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === productSelection);
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formData = DynamicForm.getformData(selectedProductInfo.productForm);
-                // --- Basic Subtotal Calculation (needs to be product & form-aware) ---
-                // --- Placeholder: Assuming each product has a base price of 100 for now ---
-                subtotal += 100; //  <--- Placeholder subtotal calculation - needs to be dynamic
-                console.log("Form Data:", formData); // Log form data for now
+                subtotal += 100;
+                console.log("Form Data:", formData);
             }
         }
 
-
-        // --- Shipping Cost ---
         let shippingCost = 0;
         const selectedShippingOption = shippingOptionDropdown.value;
         if (selectedShippingOption) {
@@ -99,36 +200,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const totalOrderPrice = subtotal + shippingCost;
-
-        // --- Display Order Total ---
         const orderTotalPriceValue = document.getElementById('order-total-price-value');
         orderTotalPriceValue.textContent = `PHP ${totalOrderPrice.toFixed(2)}`;
     }
 
 
-    // --- Attach calculateOrderTotal to relevant events ---
     shippingOptionDropdown.addEventListener('change', calculateOrderTotal);
-    // --- Need to attach calculateOrderTotal to dynamic form changes as well (to be implemented) ---
 
 
-    // --- Conditional Display Logic for Shipping Address ---
-    const shippingAddressField = document.querySelector('.form-group:has(> label[for="shippingAddress"])'); // Selects the form-group containing Shipping Address
+    // --- Conditional Display Logic for Shipping Address -  REPLACED SECTION - ---
+    const shipToDifferentAddressCheckbox = document.getElementById('ship-to-different-address');
+    const shippingAddressSection = document.getElementById('shipping-address-section');
+    const shippingOptionDropdown = document.getElementById('shippingOption'); // Make sure to get the shippingOptionDropdown
+
     function toggleShippingAddressVisibility() {
         const selectedShippingOption = shippingOptionDropdown.value;
-        const pickupOptions = ["Pickup in-person", "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)"]; // Array of pickup options
+        const pickupOptions = ["Pickup in-person", "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)"];
 
-        if (pickupOptions.includes(selectedShippingOption)) {
-            shippingAddressField.style.display = 'none'; // Hide if pickup option is selected
+        if (pickupOptions.includes(selectedShippingOption) || !shipToDifferentAddressCheckbox.checked) {
+            shippingAddressSection.style.display = 'none';
         } else {
-            shippingAddressField.style.display = 'block'; // Show otherwise
+            shippingAddressSection.style.display = 'block';
         }
     }
 
+    // --- INITIAL STATE - IMPORTANT: HIDE ON PAGE LOAD ---
+    shippingAddressSection.style.display = 'none';
+
+    // --- EVENT LISTENERS ---
+    shipToDifferentAddressCheckbox.addEventListener('change', toggleShippingAddressVisibility);
     shippingOptionDropdown.addEventListener('change', toggleShippingAddressVisibility);
-    toggleShippingAddressVisibility(); // Initial call to set correct visibility on page load
+
+    // --- INITIAL CALL TO SET VISIBILITY ON LOAD ---
+    toggleShippingAddressVisibility();
 
 
-    // --- Populate Product Selection Dropdown ---
+    // Populate Product Selection Dropdown (as before - no changes here)
     const productDropdown = document.getElementById('productSelection');
     ConfigParameters.productInfo.forEach(product => {
         let option = document.createElement('option');
@@ -138,16 +245,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // --- Add to Cart Button Functionality (Placeholder) ---
+    // Add to Cart Button Functionality (Placeholder) (as before - no changes here)
     const addToCartButton = document.getElementById('add-to-cart-button');
     addToCartButton.addEventListener('click', function() {
         const selectedProduct = productDropdown.value;
         if (selectedProduct) {
-            // --- Get Dynamic Form Data ---
             const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === selectedProduct);
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formData = DynamicForm.getformData(selectedProductInfo.productForm);
-                alert(`Added to Cart: ${selectedProduct}, Options: ${formData || 'None'}`); // Placeholder alert
+                alert(`Added to Cart: ${selectedProduct}, Options: ${formData || 'None'}`);
             } else {
                 alert(`Added to Cart: ${selectedProduct} (No Options)`);
             }
@@ -157,13 +263,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // --- Dynamic Form Population based on Product Selection ---
+    // Dynamic Form Population based on Product Selection (as before - no changes here)
     const productSelectionDropdown = document.getElementById('productSelection');
     const dynamicFormArea = document.getElementById('dynamic-form-area');
 
     productSelectionDropdown.addEventListener('change', function() {
         const selectedProductName = productSelectionDropdown.value;
-        dynamicFormArea.innerHTML = ''; // Clear previous form
+        dynamicFormArea.innerHTML = '';
 
         if (selectedProductName) {
             const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === selectedProductName);
@@ -171,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const formHTML = DynamicForm.drawform(selectedProductInfo.productForm);
                 dynamicFormArea.innerHTML = formHTML;
             } else {
-                dynamicFormArea.innerHTML = '<p>No additional options for this product.</p>'; // Optional message if no form defined
+                dynamicFormArea.innerHTML = '<p>No additional options for this product.</p>';
             }
         }
     });
