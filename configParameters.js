@@ -27,7 +27,7 @@ class ConfigParameters {
     ];
 
     // --- Product Information ---
-    static productInfo = [ // Javascript object array for product info
+    static productInfo = [ // Javascript object array for product info //
         { 
             productName: "Charm 1", 
             productForm: null 
