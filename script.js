@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         slideshowImage.src = slides[index];
         slideshowImage.alt = `Slide ${index + 1}`;
 
-        // Update indicators (if you have them)//
+        // Update indicators (if you have them)
         const indicators = indicatorsContainer.querySelectorAll('span');
         indicators.forEach(span => span.classList.remove('active'));
         indicators[index].classList.add('active');
