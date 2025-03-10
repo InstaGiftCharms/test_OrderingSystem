@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Total Order Price Display ---
-    let totalOrderPrice = 0; // Initialize total order price
+    let totalOrderPrice = 125.50; // Initialize total order price
     let previousShippingCost = 0; // Store the cost of the previously selected shipping option
 
     const totalPriceValueElement = document.getElementById('order-total-price-value');
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPriceAreaElement.style.display = 'block';
         const orderDescriptionGroup = totalPriceAreaElement.nextElementSibling;
         const formElement = totalPriceAreaElement.closest('form');
+
+        // **--- Initially Hide Shipping Address on Page Load ---**
+        shippingAddressGroup.style.display = 'none'; // <----- ADDED: Initial Hide
 
 
         shippingOptionSelect.addEventListener('change', function() {
