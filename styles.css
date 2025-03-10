@@ -346,6 +346,7 @@ header {
 
 /* Style labels associated with dynamic form elements - FONT SIZE REDUCED and display adjusted */
 .dynamic-form-area label.dynamic-form-label {
+    display: inline-block;
     font-size: 0.75em; /* Reduced font size to 75% */
     font-weight: normal;
     color: #555;
