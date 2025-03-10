@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Total Order Price Display ---
-    let totalOrderPrice = 0; // Initialize total order price
+    let totalOrderPrice = 0; // Initialize total order price to ZERO as requested
     let previousShippingCost = 0; // Store the cost of the previously selected shipping option
 
     const totalPriceValueElement = document.getElementById('order-total-price-value');
@@ -156,5 +156,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 formElement.insertBefore(totalPriceAreaElement, orderDescriptionGroup);
             }
         });
+    }
+
+    // --- Product Selection Dropdown Population ---
+    const productSelectionDropdown = document.getElementById('productSelection');
+    ConfigParameters.productInfo.forEach(product => {
+        const optionElement = document.createElement('option');
+        optionElement.value = product.productName; // Or product ID if you have one
+        optionElement.textContent = product.productName;
+        productSelectionDropdown.appendChild(optionElement);
+    });
+
+
+    // --- Add to Cart Button Functionality ---
+    const addToCartButton = document.getElementById('add-to-cart-button');
+    addToCartButton.addEventListener('click', addToCart);
+
+    function addToCart() {
+        console.log("add to cart"); // For now, just log to console
+        // In future steps:
+        // 1. Get selected product and dynamic form data
+        // 2. Add item to cart (which we'll implement later)
     }
 });
