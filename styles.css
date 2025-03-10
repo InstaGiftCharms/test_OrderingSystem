@@ -6,7 +6,7 @@ body {
     align-items: center;
     height: 100vh; /*  <----- KEPT for desktop */
     background-color: #F8E3C8;
-    overflow: hidden; /*  <----- KEPT for desktop */
+    overflow: hidden; /*  <----- KEPT for desktop */ 
 }
 
 header {
