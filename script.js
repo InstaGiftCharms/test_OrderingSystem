@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Slideshow functionality (existing code - keep this)
+    // Slideshow functionality
     let slideIndex = 0;
-    const slides = configParameters.slideshowImages;
+    const slides = ConfigParameters.slideshowImages; // Access static property using class name
     const slideshowImage = document.getElementById('slideshow-image');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
@@ -42,28 +42,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (slides && slides.length > 0) {
         createIndicators();
         updateSlide(slideIndex); // Initialize to first slide
-        setInterval(nextSlide, configParameters.slideshowInterval); // Auto advance
+        setInterval(nextSlide, ConfigParameters.slideshowInterval); // Access static property using class name
 
         nextButton.addEventListener('click', nextSlide);
         prevButton.addEventListener('click', prevSlide);
     } else {
-        console.warn("No slideshow images provided in configParameters.js");
+        console.warn("No slideshow images provided in ConfigParameters.js");
         // Consider hiding slideshow or displaying a placeholder image
     }
 
 
-    // Shipping Options population (existing code - keep this)
+    // Shipping Options population
     const shippingSelect = document.getElementById('shippingOption');
-    configParameters.shippingOptions.forEach(optionText => {
+    ConfigParameters.shippingOptions.forEach(optionText => { // Access static property using class name
         const optionElement = document.createElement('option');
-        optionElement.value = optionText; // Set value to the option text
-        optionElement.textContent = optionText; // Display text
+        optionElement.value = optionText;
+        optionElement.textContent = optionText;
         shippingSelect.appendChild(optionElement);
     });
 
-    // --- Conditional Display Logic for Shipping Address (DEBUGGING ADDED) ---
+    // --- Conditional Display Logic for Shipping Address ---
     const shippingOptionSelect = document.getElementById('shippingOption');
-    const shippingAddressGroup = document.querySelector('.form-group:has(#shippingAddress)'); // Select the form-group containing shippingAddress
+    const shippingAddressGroup = document.querySelector('.form-group:has(#shippingAddress)');
 
     if (!shippingAddressGroup) {
         console.error("Shipping Address form group not found. Ensure you have a .form-group containing #shippingAddress in your index.html");
@@ -74,14 +74,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedOptionText = shippingOptionSelect.options[shippingOptionSelect.selectedIndex].text;
             const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping') || selectedOptionText.toLowerCase().includes('delivery');
 
-            console.log("Selected Shipping Option Text:", selectedOptionText); // DEBUGGING LINE
-            console.log("Show Shipping Address:", showShippingAddress);     // DEBUGGING LINE
-            console.log("Shipping Address Group Element:", shippingAddressGroup); // DEBUGGING LINE
+            //console.log("Selected Shipping Option Text:", selectedOptionText); // DEBUGGING LINE
+            //console.log("Show Shipping Address:", showShippingAddress);     // DEBUGGING LINE
+            //console.log("Shipping Address Group Element:", shippingAddressGroup); // DEBUGGING LINE
 
             if (showShippingAddress) {
-                shippingAddressGroup.style.display = 'block'; // Show if "shipping" or "delivery" is in the option
+                shippingAddressGroup.style.display = 'block';
             } else {
-                shippingAddressGroup.style.display = 'none';  // Hide otherwise
+                shippingAddressGroup.style.display = 'none';
             }
         });
     }
