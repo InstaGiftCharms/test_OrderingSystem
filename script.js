@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Shipping Options population
     const shippingSelect = document.getElementById('shippingOption');
-    ConfigParameters.shippingOptions.forEach(optionText => {
+    ConfigParameters.shippingOptions.forEach(option => { // Loop through the object array
         const optionElement = document.createElement('option');
-        optionElement.value = optionText;
-        optionElement.textContent = optionText;
+        optionElement.value = option.optionName; // Set value to optionName
+        optionElement.textContent = option.optionName; // Set textContent to optionName
         shippingSelect.appendChild(optionElement);
     });
 
@@ -75,19 +75,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Total Order Price Display ---
-    let totalOrderPrice = 125.50; // Initialize totalOrderPrice variable (example value)
+    let totalOrderPrice = 125.50; // Initialize total order price
+    let previousShippingCost = 0; // Store the cost of the previously selected shipping option
+
     const totalPriceValueElement = document.getElementById('order-total-price-value');
-    const totalPriceAreaElement = document.querySelector('.order-total-area'); // Get the total price area
-    const shippingAddressGroup = document.querySelector('.form-group:has(#shippingAddress)'); // Get Shipping Address group
 
     function updateTotalPriceDisplay() {
-        totalPriceValueElement.textContent = `PHP ${totalOrderPrice.toFixed(2)}`; // Format to 2 decimal places and add PHP
+        totalPriceValueElement.textContent = `PHP ${totalOrderPrice.toFixed(2)}`;
     }
 
-    updateTotalPriceDisplay(); // Initial display of total price
+    function addPrice(price) {
+        totalOrderPrice += price;
+        updateTotalPriceDisplay();
+    }
+
+    function subtractPrice(price) {
+        totalOrderPrice -= price;
+        updateTotalPriceDisplay();
+    }
+
+    function resetPrice() {
+        totalOrderPrice = 0;
+        updateTotalPriceDisplay();
+    }
+
+    updateTotalPriceDisplay(); // Initial display
 
     // --- Conditional Display Logic for Shipping Address and Total Price Area ---
     const shippingOptionSelect = document.getElementById('shippingOption');
+    const shippingAddressGroup = document.querySelector('.form-group:has(#shippingAddress)');
+    const totalPriceAreaElement = document.querySelector('.order-total-area');
+
 
     if (!shippingAddressGroup) {
         console.error("Shipping Address form group not found.");
@@ -97,23 +115,42 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    if (shippingAddressGroup && totalPriceAreaElement) { // Proceed only if both elements are found
-        totalPriceAreaElement.style.display = 'block'; // Initially show total price area
-        const orderDescriptionGroup = totalPriceAreaElement.nextElementSibling; // Get the Order Description group (next sibling)
-        const formElement = totalPriceAreaElement.closest('form'); // Get the form element
+    if (shippingAddressGroup && totalPriceAreaElement) {
+        totalPriceAreaElement.style.display = 'block';
+        const orderDescriptionGroup = totalPriceAreaElement.nextElementSibling;
+        const formElement = totalPriceAreaElement.closest('form');
+
 
         shippingOptionSelect.addEventListener('change', function() {
-            const selectedOptionText = shippingOptionSelect.options[shippingOptionSelect.selectedIndex].text;
-            const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping');
+            const selectedOptionName = shippingOptionSelect.value; // Get selected optionName
+            let selectedOptionCost = 0; // Default cost if not found
+
+            // Find the selected option's cost from ConfigParameters.shippingOptions
+            const selectedOptionData = ConfigParameters.shippingOptions.find(option => option.optionName === selectedOptionName);
+            if (selectedOptionData) {
+                selectedOptionCost = selectedOptionData.optionCost;
+            }
+
+            // Subtract the previous shipping cost
+            subtractPrice(previousShippingCost);
+
+            // Add the new shipping cost
+            addPrice(selectedOptionCost);
+
+            // Update the previous shipping cost for the next change
+            previousShippingCost = selectedOptionCost;
+
+
+            const showShippingAddress = selectedOptionName.toLowerCase().includes('shipping');
 
             if (showShippingAddress) {
                 shippingAddressGroup.style.display = 'block';
-                if (shippingAddressGroup.nextElementSibling !== totalPriceAreaElement) { // Check if total price area is NOT already after shipping address
-                    formElement.insertBefore(totalPriceAreaElement, orderDescriptionGroup); // Move Total Price area below Shipping Address but above Order Description
+                if (shippingAddressGroup.nextElementSibling !== totalPriceAreaElement) {
+                    formElement.insertBefore(totalPriceAreaElement, orderDescriptionGroup);
                 }
             } else {
                 shippingAddressGroup.style.display = 'none';
-                formElement.insertBefore(totalPriceAreaElement, orderDescriptionGroup); // Move Total Price area back to default position (above Order Description) when shipping address is hidden
+                formElement.insertBefore(totalPriceAreaElement, orderDescriptionGroup);
             }
         });
     }
