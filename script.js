@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         shippingOptionSelect.addEventListener('change', function() {
             const selectedOptionText = shippingOptionSelect.options[shippingOptionSelect.selectedIndex].text;
+            console.log(selectedOptionText);
             const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping') || selectedOptionText.toLowerCase().includes('delivery');
 
             if (showShippingAddress) {
