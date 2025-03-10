@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Slideshow functionality
     let slideIndex = 0;
-    const slides = ConfigParameters.slideshowImages; // Access static property using class name 
+    const slides = ConfigParameters.slideshowImages; // Access static property using class name
     const slideshowImage = document.getElementById('slideshow-image');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
@@ -64,7 +64,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Populate Shipping Option Explanation Text
     const shippingExplanationElement = document.getElementById('shipping-options-explanation');
     if (shippingExplanationElement) {
-        shippingExplanationElement.textContent = ConfigParameters.shippingOptionText;
+        ConfigParameters.shippingOptionText.forEach(paragraphText => { // Loop through the array
+            const pElement = document.createElement('p'); // Create a <p> element for each paragraph
+            pElement.innerHTML = paragraphText; // Set innerHTML to handle potential HTML in text (like bolding later if needed)
+            shippingExplanationElement.appendChild(pElement); // Append <p> to explanation div
+        });
     } else {
         console.error("Shipping explanation element with ID 'shipping-options-explanation' not found in index.html");
     }
