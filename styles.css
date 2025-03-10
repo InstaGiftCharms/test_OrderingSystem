@@ -257,6 +257,20 @@ header {
     text-align: center; /* Center the title above the form */
 }
 
+/* Shipping Option Explanation Text Styling */
+#shipping-options-explanation p {
+    font-size: 0.95em; /* Slightly smaller than form labels */
+    color: #777;       /* Muted dark gray color */
+    line-height: 1.5;    /* Improved line spacing for readability */
+    margin-bottom: 10px; /* Space between paragraphs */
+}
+
+/* Optional: Style the bolded option names within the explanation */
+#shipping-options-explanation p strong {
+    font-weight: bold;      /* Make the bold text even bolder if needed */
+    color: #555;           /* Slightly darker color for emphasis */
+}
+
 
 /* Scrollbar Styling for Form Area (WebKit browsers) */
 .form-area::-webkit-scrollbar {
