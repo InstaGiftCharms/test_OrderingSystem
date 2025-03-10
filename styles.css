@@ -344,44 +344,59 @@ header {
 
 /* --- Styling for Dynamic Form Elements (Radio, Checkbox, Number) --- */
 
-/* Common styling for dynamic form input elements */
-.dynamic-form-area input[type="radio"],
+/* Common styling for dynamic form input elements -  REMOVED - styling done below specifically */
+/* .dynamic-form-area input[type="radio"],
 .dynamic-form-area input[type="checkbox"],
 .dynamic-form-area input[type="number"] {
-    margin-right: 8px; /* Add some spacing to the right of the input */
-    margin-bottom: 10px; /* Add vertical spacing */
-    vertical-align: middle; /* Align with label text */
+    margin-right: 8px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+} */
+
+/* Style labels associated with dynamic form elements - FONT SIZE REDUCED and display adjusted */
+.dynamic-form-area label.dynamic-form-label {
+    font-size: 0.75em; /* Reduced font size to 75% */
+    font-weight: normal;
+    color: #555;
+    vertical-align: middle;
 }
 
-/* Style labels associated with dynamic form elements */
-.dynamic-form-area label {
-    font-weight: normal; /* Adjust label font weight if needed */
-    color: #555;         /* Match label color to other labels */
-    vertical-align: middle; /* Align labels with inputs */
+/* Styling for radio and checkbox containers to position text to the right */
+.dynamic-form-area div.radio-checkbox-option {
+    display: flex;           /* Use flexbox for horizontal alignment */
+    align-items: center;     /* Vertically align items in container */
+    margin-bottom: 10px;    /* Space between options */
 }
 
-/* Specifically style number inputs to match text inputs */
-.dynamic-form-area input[type="number"] {
-    width: calc(100% - 30px); /* Adjust width to account for margins/padding if needed, reduced for radio/checkbox spacing */
+.dynamic-form-area div.radio-checkbox-option input[type="radio"],
+.dynamic-form-area div.radio-checkbox-option input[type="checkbox"] {
+    margin-right: 5px;      /* Space between button/checkbox and text */
+    margin-bottom: 0;       /* Reset bottom margin from general rule */
+}
+
+/* Specifically style number inputs to match text inputs - Corrected Styling */
+.dynamic-form-area input[type="number"].dynamic-form-input { /* CORRECTED SELECTOR with .dynamic-form-input class */
+    width: calc(100% - 20px); /* Slightly wider now that radio/checkbox margin is removed from general rule */
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 25px;
     font-size: 1em;
     box-sizing: border-box;
-    display: inline-block; /* Or block, adjust as needed for layout */
-    -webkit-appearance: none; /* Reset appearance for WebKit browsers */
-    -moz-appearance: none;    /* Reset appearance for Firefox */
-    appearance: none;         /* Standard reset */
+    display: block; /* Keep as block for full width */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin-bottom: 10px; /* Add bottom margin for spacing */
 }
 
-/* Optional: Adjust spacing for radio and checkboxes in form-group */
+/* Optional: Adjust spacing for radio and checkboxes in form-group - KEPT */
 .form-group input[type="radio"],
 .form-group input[type="checkbox"] {
-    margin-right: 8px; /* Consistent right margin */
-    margin-bottom: 10px; /* Consistent bottom margin */
+    margin-right: 8px;
+    margin-bottom: 10px;
     vertical-align: middle;
 }
 
 .form-group label {
-    vertical-align: middle; /* Ensure labels are also vertically aligned */
+    vertical-align: middle;
 }
