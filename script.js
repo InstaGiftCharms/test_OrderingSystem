@@ -72,12 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         shippingOptionSelect.addEventListener('change', function() {
             const selectedOptionText = shippingOptionSelect.options[shippingOptionSelect.selectedIndex].text;
-            const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping') || selectedOptionText.toLowerCase().includes('delivery');
-
-            //console.log("Selected Shipping Option Text:", selectedOptionText); // DEBUGGING LINE
-            //console.log("Show Shipping Address:", showShippingAddress);     // DEBUGGING LINE
-            //console.log("Shipping Address Group Element:", shippingAddressGroup); // DEBUGGING LINE
-
+            const showShippingAddress = selectedOptionText.toLowerCase().includes('shipping'); 
+            
             if (showShippingAddress) {
                 shippingAddressGroup.style.display = 'block';
             } else {
