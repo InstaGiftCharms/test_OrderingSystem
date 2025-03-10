@@ -4,7 +4,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh; /*  <----- KEPT for desktop */ 
+    height: 100vh; /*  <----- KEPT for desktop */
     background-color: #F8E3C8;
     overflow: hidden; /*  <----- KEPT for desktop */
 }
@@ -257,9 +257,9 @@ header {
     text-align: center; /* Center the title above the form */
 }
 
-/* Shipping Option Explanation Text Styling - FONT SIZE REDUCED */
+/* Shipping Option Explanation Text Styling - FONT SIZE REDUCED to 0.75em */
 #shipping-options-explanation p {
-    font-size: 0.9em; /*  <----- REDUCED font size to 0.9em */
+    font-size: 0.75em; /*  <----- REDUCED font size to 0.75em */
     color: #777;       /* Muted dark gray color */
     line-height: 1.5;    /* Improved line spacing for readability */
     margin-bottom: 10px; /* Space between paragraphs */
