@@ -27,26 +27,46 @@ class ConfigParameters {
     ];
 
     // --- Product Information ---
-    static productInfo = [ // Javascript object array for product info //
-        { 
-            productName: "Charm 1", 
-            productForm: null 
+    static productInfo = [
+        {
+            productName: "Charm 1",
+            productForm: [ // Define form for Charm 1
+                { type: 'label', id: 'charm1Label', value: 'Charm 1 Details:' },
+                { type: 'textbox', id: 'charm1Text', value: 'Enter your text for Charm 1' },
+                { type: 'quantity', id: 'charm1Quantity', value: 'Quantity' }
+            ]
         },
         {
             productName: "Charm 2",
-            productForm: null 
+            productForm: [ // Define form for Charm 2
+                { type: 'label', id: 'charm2Label', value: 'Charm 2 Options:' },
+                { type: 'radio', id: 'charm2Color', value: 'Red;Blue;Green' },
+                { type: 'quantity', id: 'charm2Quantity', value: 'Quantity' }
+            ]
         },
         {
             productName: "Charm 3",
-            productForm: null 
+            productForm: [ // Define form for Charm 3
+                { type: 'label', id: 'charm3Label', value: 'Charm 3 Choices:' },
+                { type: 'checkbox', id: 'charm3Features', value: 'Feature A;Feature B;Feature C' },
+                { type: 'quantity', id: 'charm3Quantity', value: 'Quantity' }
+            ]
         },
         {
             productName: "Charm Set A",
-            productForm: null 
+            productForm: [ // Define form for Charm Set A
+                { type: 'label', id: 'charmSetALabel', value: 'Charm Set A Customization:' },
+                { type: 'textbox', id: 'charmSetAText1', value: 'Enter text for part 1' },
+                { type: 'textbox', id: 'charmSetAText2', value: 'Enter text for part 2' },
+                { type: 'quantity', id: 'charmSetAQuantity', value: 'Quantity' }
+            ]
         },
         {
             productName: "Custom Charm Design",
-            productForm: null
+            productForm: [ // Define form for Custom Charm Design
+                { type: 'label', id: 'customCharmLabel', value: 'Custom Charm Design Request:' },
+                { type: 'textarea', id: 'customCharmDescription', value: 'Describe your custom charm design' } // Textarea type is missing in DynamicForm, you might want to add it later. For now, using textbox as placeholder
+            ]
         }
     ];
 }
