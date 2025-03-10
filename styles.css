@@ -6,7 +6,7 @@ body {
     align-items: center;
     height: 100vh; /*  <----- KEPT for desktop */
     background-color: #F8E3C8;
-    overflow: hidden; /*  <----- KEPT for desktop */ 
+    overflow: hidden; /*  <----- KEPT for desktop */
 }
 
 header {
@@ -339,4 +339,49 @@ header {
 .add-cart-button:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.5); /* Optional: add focus outline */
+}
+
+
+/* --- Styling for Dynamic Form Elements (Radio, Checkbox, Number) --- */
+
+/* Common styling for dynamic form input elements */
+.dynamic-form-area input[type="radio"],
+.dynamic-form-area input[type="checkbox"],
+.dynamic-form-area input[type="number"] {
+    margin-right: 8px; /* Add some spacing to the right of the input */
+    margin-bottom: 10px; /* Add vertical spacing */
+    vertical-align: middle; /* Align with label text */
+}
+
+/* Style labels associated with dynamic form elements */
+.dynamic-form-area label {
+    font-weight: normal; /* Adjust label font weight if needed */
+    color: #555;         /* Match label color to other labels */
+    vertical-align: middle; /* Align labels with inputs */
+}
+
+/* Specifically style number inputs to match text inputs */
+.dynamic-form-area input[type="number"] {
+    width: calc(100% - 30px); /* Adjust width to account for margins/padding if needed, reduced for radio/checkbox spacing */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 1em;
+    box-sizing: border-box;
+    display: inline-block; /* Or block, adjust as needed for layout */
+    -webkit-appearance: none; /* Reset appearance for WebKit browsers */
+    -moz-appearance: none;    /* Reset appearance for Firefox */
+    appearance: none;         /* Standard reset */
+}
+
+/* Optional: Adjust spacing for radio and checkboxes in form-group */
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+    margin-right: 8px; /* Consistent right margin */
+    margin-bottom: 10px; /* Consistent bottom margin */
+    vertical-align: middle;
+}
+
+.form-group label {
+    vertical-align: middle; /* Ensure labels are also vertically aligned */
 }
