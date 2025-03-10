@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const formData = DynamicForm.getformData(selectedProductInfo.productForm);
                 // --- Basic Subtotal Calculation (needs to be product & form-aware) ---
                 // --- Placeholder: Assuming each product has a base price of 100 for now ---
-                subtotal += 100; //  <--- Placeholder subtotal calculation - needs to be dynamic
+                // subtotal += 100; //  <--- Placeholder subtotal calculation - needs to be dynamic  - REMOVED THIS LINE
                 console.log("Form Data:", formData); // Log form data for now
             }
         }
