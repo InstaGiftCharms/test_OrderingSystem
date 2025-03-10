@@ -345,12 +345,13 @@ header {
 /* --- Styling for Dynamic Form Elements (Radio, Checkbox, Number) --- */
 
 /* Style labels associated with dynamic form elements - FONT SIZE REDUCED and display adjusted */
-.dynamic-form-area label.dynamic-form-label {
-    display: inline-block;
+div.radio-checkbox-option label.dynamic-form-label { /*  <----- CORRECTED and MORE SPECIFIC SELECTOR */
+    display: inline-block; /*  <-----  Horizontal Alignment Fix - inline-block */
     font-size: 0.75em; /* Reduced font size to 75% */
     font-weight: normal;
     color: #555;
     vertical-align: middle;
+    margin-left: 5px; /* Space between button/checkbox and text - moved here for better specificity */
 }
 
 /* Styling for radio and checkbox containers to position text to the right */
@@ -366,9 +367,6 @@ header {
     margin-bottom: 0;       /* Reset bottom margin from general rule */
 }
 
-.dynamic-form-area div.radio-checkbox-option label.dynamic-form-label { /* Style label within radio-checkbox-option */
-    margin-left: 5px;       /* Space between button/checkbox and text */
-}
 
 /* Specifically style number inputs to match text inputs - Corrected Styling */
 .dynamic-form-area input[type="number"].dynamic-form-input { /* CORRECTED SELECTOR with .dynamic-form-input class */
