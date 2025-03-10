@@ -9,25 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateSlide(index) {
         slideshowImage.src = slides[index];
-        slideshowImage.alt = `Slide ${index + 1}`;
-
-        // Update indicators (if you have them)
-        const indicators = indicatorsContainer.querySelectorAll('span');
-        indicators.forEach(span => span.classList.remove('active'));
-        indicators[index].classList.add('active');
+        slideshowImage.alt = `Slide ${index + 1} of ${slides.length}`; // Alt text for accessibility
+        updateIndicators(index); // Update indicators to reflect current slide
     }
-
-    function createIndicators() {
-        slides.forEach((_, index) => {
-            const span = document.createElement('span');
-            span.addEventListener('click', () => {
-                slideIndex = index;
-                updateSlide(slideIndex);
-            });
-            indicatorsContainer.appendChild(span);
-        });
-    }
-
 
     function nextSlide() {
         slideIndex = (slideIndex + 1) % slides.length;
@@ -39,143 +23,158 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSlide(slideIndex);
     }
 
-    if (slides && slides.length > 0) {
-        createIndicators();
-        updateSlide(slideIndex); // Initialize to first slide
-        setInterval(nextSlide, ConfigParameters.slideshowInterval); // Access static property using class name
+    function createIndicators() {
+        slides.forEach((_, index) => {
+            const indicator = document.createElement('span');
+            indicator.classList.add('slideshow-indicator');
+            indicator.addEventListener('click', () => {
+                slideIndex = index;
+                updateSlide(slideIndex);
+            });
+            indicatorsContainer.appendChild(indicator);
+        });
+        updateIndicators(0); // Highlight the first indicator initially
+    }
 
-        nextButton.addEventListener('click', nextSlide);
-        prevButton.addEventListener('click', prevSlide);
-    } else {
-        console.warn("No slideshow images provided in ConfigParameters.js");
-        // Consider hiding slideshow or displaying a placeholder image
+    function updateIndicators(currentIndex) {
+        const indicators = document.querySelectorAll('.slideshow-indicators span');
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
     }
 
 
-    // Shipping Options population
-    const shippingSelect = document.getElementById('shippingOption');
-    ConfigParameters.shippingOptions.forEach(option => { // Loop through the object array
-        const optionElement = document.createElement('option');
-        optionElement.value = option.optionName; // Set value to optionName
-        optionElement.textContent = option.optionName; // Set textContent to optionName
-        shippingSelect.appendChild(optionElement);
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
+
+    // Initialize slideshow
+    createIndicators();
+    updateSlide(slideIndex);
+    setInterval(nextSlide, ConfigParameters.slideshowInterval);
+
+    // Populate shipping options dynamically
+    const shippingOptionDropdown = document.getElementById('shippingOption');
+    ConfigParameters.shippingOptions.forEach(option => {
+        let optionElement = document.createElement('option');
+        optionElement.value = option.optionName;
+        optionElement.textContent = `${option.optionName} ${option.optionCost > 0 ? '(PHP ' + option.optionCost.toFixed(2) + ')' : '(FREE)'}`;
+        shippingOptionDropdown.appendChild(optionElement);
     });
 
-    // Populate Shipping Option Explanation Text
-    const shippingExplanationElement = document.getElementById('shipping-options-explanation');
-    if (shippingExplanationElement) {
-        ConfigParameters.shippingOptionText.forEach(paragraphText => { // Loop through the array
-            const pElement = document.createElement('p'); // Create a <p> element for each paragraph
-            pElement.innerHTML = paragraphText; // Set innerHTML to handle potential HTML in text (like bolding later if needed)
-            shippingExplanationElement.appendChild(pElement); // Append <p> to explanation div
-        });
-    } else {
-        console.error("Shipping explanation element with ID 'shipping-options-explanation' not found in index.html");
-    }
+    // Set Shipping Options Explanation Text
+    const shippingExplanation = document.getElementById('shipping-options-explanation');
+    let explanationHTML = '';
+    ConfigParameters.shippingOptionText.forEach(paragraph => {
+        explanationHTML += `<p>${paragraph}</p>`;
+    });
+    shippingExplanation.innerHTML = explanationHTML;
 
 
-    // --- Total Order Price Display ---
-    let totalOrderPrice = 0; // Initialize total order price to ZERO as requested
-    let previousShippingCost = 0; // Store the cost of the previously selected shipping option
+    // --- Function to Calculate and Display Total Order Price ---
+    function calculateOrderTotal() {
+        let subtotal = 0;
 
-    const totalPriceValueElement = document.getElementById('order-total-price-value');
-
-    function updateTotalPriceDisplay() {
-        totalPriceValueElement.textContent = `PHP ${totalOrderPrice.toFixed(2)}`;
-    }
-
-    function addPrice(price) {
-        totalOrderPrice += price;
-        updateTotalPriceDisplay();
-    }
-
-    function subtractPrice(price) {
-        totalOrderPrice -= price;
-        updateTotalPriceDisplay();
-    }
-
-    function resetPrice() {
-        totalOrderPrice = 0;
-        updateTotalPriceDisplay();
-    }
-
-    updateTotalPriceDisplay(); // Initial display
-
-    // --- Conditional Display Logic for Shipping Address and Total Price Area ---
-    const shippingOptionSelect = document.getElementById('shippingOption');
-    const shippingAddressGroup = document.querySelector('.form-group:has(#shippingAddress)');
-    const totalPriceAreaElement = document.querySelector('.order-total-area');
-
-
-    if (!shippingAddressGroup) {
-        console.error("Shipping Address form group not found.");
-    }
-    if (!totalPriceAreaElement) {
-        console.error("Total Price area form group not found.");
-    }
-
-
-    if (shippingAddressGroup && totalPriceAreaElement) {
-        totalPriceAreaElement.style.display = 'block';
-        const orderDescriptionGroup = totalPriceAreaElement.nextElementSibling;
-        const formElement = totalPriceAreaElement.closest('form');
-
-        // **--- Initially Hide Shipping Address on Page Load ---**
-        shippingAddressGroup.style.display = 'none'; // <----- ADDED: Initial Hide
-
-
-        shippingOptionSelect.addEventListener('change', function() {
-            const selectedOptionName = shippingOptionSelect.value; // Get selected optionName
-            let selectedOptionCost = 0; // Default cost if not found
-
-            // Find the selected option's cost from ConfigParameters.shippingOptions
-            const selectedOptionData = ConfigParameters.shippingOptions.find(option => option.optionName === selectedOptionName);
-            if (selectedOptionData) {
-                selectedOptionCost = selectedOptionData.optionCost;
+        // --- Get Dynamic Form Data and Calculate Subtotal ---
+        const productSelection = document.getElementById('productSelection').value;
+        if (productSelection) {
+            const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === productSelection);
+            if (selectedProductInfo && selectedProductInfo.productForm) {
+                const formData = DynamicForm.getformData(selectedProductInfo.productForm);
+                // --- Basic Subtotal Calculation (needs to be product & form-aware) ---
+                // --- Placeholder: Assuming each product has a base price of 100 for now ---
+                subtotal += 100; //  <--- Placeholder subtotal calculation - needs to be dynamic
+                console.log("Form Data:", formData); // Log form data for now
             }
-
-            // Subtract the previous shipping cost
-            subtractPrice(previousShippingCost);
-
-            // Add the new shipping cost
-            addPrice(selectedOptionCost);
-
-            // Update the previous shipping cost for the next change
-            previousShippingCost = selectedOptionCost;
+        }
 
 
-            const showShippingAddress = selectedOptionName.toLowerCase().includes('shipping');
-
-            if (showShippingAddress) {
-                shippingAddressGroup.style.display = 'block';
-                if (shippingAddressGroup.nextElementSibling !== totalPriceAreaElement) {
-                    formElement.insertBefore(totalPriceAreaElement, orderDescriptionGroup);
-                }
-            } else {
-                shippingAddressGroup.style.display = 'none';
-                formElement.insertBefore(totalPriceAreaElement, orderDescriptionGroup);
+        // --- Shipping Cost ---
+        let shippingCost = 0;
+        const selectedShippingOption = shippingOptionDropdown.value;
+        if (selectedShippingOption) {
+            const selectedShipping = ConfigParameters.shippingOptions.find(option => option.optionName === selectedShippingOption);
+            if (selectedShipping) {
+                shippingCost = selectedShipping.optionCost;
             }
-        });
+        }
+
+        const totalOrderPrice = subtotal + shippingCost;
+
+        // --- Display Order Total ---
+        const orderTotalPriceValue = document.getElementById('order-total-price-value');
+        orderTotalPriceValue.textContent = `PHP ${totalOrderPrice.toFixed(2)}`;
     }
 
-    // --- Product Selection Dropdown Population ---
-    const productSelectionDropdown = document.getElementById('productSelection');
+
+    // --- Attach calculateOrderTotal to relevant events ---
+    shippingOptionDropdown.addEventListener('change', calculateOrderTotal);
+    // --- Need to attach calculateOrderTotal to dynamic form changes as well (to be implemented) ---
+
+
+    // --- Conditional Display Logic for Shipping Address ---
+    const shippingAddressField = document.querySelector('.form-group:has(> label[for="shippingAddress"])'); // Selects the form-group containing Shipping Address
+    function toggleShippingAddressVisibility() {
+        const selectedShippingOption = shippingOptionDropdown.value;
+        const pickupOptions = ["Pickup in-person", "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)"]; // Array of pickup options
+
+        if (pickupOptions.includes(selectedShippingOption)) {
+            shippingAddressField.style.display = 'none'; // Hide if pickup option is selected
+        } else {
+            shippingAddressField.style.display = 'block'; // Show otherwise
+        }
+    }
+
+    shippingOptionDropdown.addEventListener('change', toggleShippingAddressVisibility);
+    toggleShippingAddressVisibility(); // Initial call to set correct visibility on page load
+
+
+    // --- Populate Product Selection Dropdown ---
+    const productDropdown = document.getElementById('productSelection');
     ConfigParameters.productInfo.forEach(product => {
-        const optionElement = document.createElement('option');
-        optionElement.value = product.productName; // Or product ID if you have one
-        optionElement.textContent = product.productName;
-        productSelectionDropdown.appendChild(optionElement);
+        let option = document.createElement('option');
+        option.value = product.productName;
+        option.textContent = product.productName;
+        productDropdown.appendChild(option);
     });
 
 
-    // --- Add to Cart Button Functionality ---
+    // --- Add to Cart Button Functionality (Placeholder) ---
     const addToCartButton = document.getElementById('add-to-cart-button');
-    addToCartButton.addEventListener('click', addToCart);
+    addToCartButton.addEventListener('click', function() {
+        const selectedProduct = productDropdown.value;
+        if (selectedProduct) {
+            // --- Get Dynamic Form Data ---
+            const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === selectedProduct);
+            if (selectedProductInfo && selectedProductInfo.productForm) {
+                const formData = DynamicForm.getformData(selectedProductInfo.productForm);
+                alert(`Added to Cart: ${selectedProduct}, Options: ${formData || 'None'}`); // Placeholder alert
+            } else {
+                alert(`Added to Cart: ${selectedProduct} (No Options)`);
+            }
+        } else {
+            alert("Please select a product before adding to cart.");
+        }
+    });
 
-    function addToCart() {
-        console.log("add to cart"); // For now, just log to console
-        // In future steps:
-        // 1. Get selected product and dynamic form data
-        // 2. Add item to cart (which we'll implement later)
-    }
+
+    // --- Dynamic Form Population based on Product Selection ---
+    const productSelectionDropdown = document.getElementById('productSelection');
+    const dynamicFormArea = document.getElementById('dynamic-form-area');
+
+    productSelectionDropdown.addEventListener('change', function() {
+        const selectedProductName = productSelectionDropdown.value;
+        dynamicFormArea.innerHTML = ''; // Clear previous form
+
+        if (selectedProductName) {
+            const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === selectedProductName);
+            if (selectedProductInfo && selectedProductInfo.productForm) {
+                const formHTML = DynamicForm.drawform(selectedProductInfo.productForm);
+                dynamicFormArea.innerHTML = formHTML;
+            } else {
+                dynamicFormArea.innerHTML = '<p>No additional options for this product.</p>'; // Optional message if no form defined
+            }
+        }
+    });
+
+
 });
