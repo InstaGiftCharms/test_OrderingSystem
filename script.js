@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Total Order Price Display ---
-    let totalOrderPrice = 125.50; // Initialize total order price
+    let totalOrderPrice = 0; // Initialize total order price
     let previousShippingCost = 0; // Store the cost of the previously selected shipping option
 
     const totalPriceValueElement = document.getElementById('order-total-price-value');
