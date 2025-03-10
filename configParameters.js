@@ -16,7 +16,7 @@ class ConfigParameters {
     ];
     static shippingOptions = [
         "Pickup in-person",
-        "Pickup via On-Demand Delivery (Lalmove, Grab, etc.)",
+        "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)",
         "Standard Shipping"
     ];
 }
