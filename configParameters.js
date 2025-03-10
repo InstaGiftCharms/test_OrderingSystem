@@ -17,12 +17,36 @@ class ConfigParameters {
     static shippingOptions = [ // Changed to Javascript object array
         { optionName: "Pickup in-person", optionCost: 0 },
         { optionName: "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)", optionCost: 0 },
-        { optionName: "Standard Shipping (+250.00Php)", optionCost: 250 }
+        { optionName: "Standard Shipping", optionCost: 250 }
     ];
     static shippingOptionText = [  // Changed to an array of strings
         "Please select the most suitable shipping option for your order:",
         "**Pickup in-person:** Select this if you will pick up your order directly from our store. We will notify you when it's ready for collection.",
         "**Pickup via On-Demand Delivery (Lalamove, Grab, etc.):** Choose this to arrange for a service like Lalamove or Grab to collect your order from our store and deliver to you. You book and pay for this service.",
-        `**Standard Shipping:** Select this to have your order shipped to your address via our preferred deliver service. Shipping fees and delivery times will apply.`
+        `**Standard Shipping:** Select this to have your order shipped to your address via **our preferred deliver service**. Shipping fees and delivery times will apply.`
+    ];
+
+    // --- Product Information ---
+    static productInfo = [ // Javascript object array for product info
+        { 
+            productName: "Charm 1", 
+            productForm: null 
+        },
+        {
+            productName: "Charm 2",
+            productForm: null 
+        },
+        {
+            productName: "Charm 3",
+            productForm: null 
+        },
+        {
+            productName: "Charm Set A",
+            productForm: null 
+        },
+        {
+            productName: "Custom Charm Design",
+            productForm: null
+        }
     ];
 }
