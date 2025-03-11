@@ -34,7 +34,7 @@ class ConfigParameters {
                 { type: 'label', id: 'charm1Label', value: 'Charm 1 Details:' },
                 { type: 'textbox', id: 'charm1Text', value: 'Enter your text for Charm 1' },
                 { type: 'quantity', id: 'charm1Quantity', value: 'Quantity' },
-                { type: 'img', id: 'charm1Image', value: '"":"https://lh3.googleusercontent.com/pw/AP1GczP0OSyCw19F_ONk0Zl5cngKbsAY-LWy414T8VCKuobPwz5a9n46RkNvaz48BZB4H-iGHyQeEaTY03504T0q18iwn_Z-Jj6yOgbEUxKlM1o4j_5T-xnyT4N6asgBN7JO31tPQRz4o5g09S4iM5iR54=w75-h75-s-no-gm?authuser=0"' } // Added image for Charm 1 - No caption to test
+                { type: 'img', id: 'charm1Image', value: '"' + ConfigParameters.slideshowImages[0] + '"' } // Image for Charm 1 - URL from slideshow, NO caption
             ]
         },
         {
@@ -43,7 +43,7 @@ class ConfigParameters {
                 { type: 'label', id: 'charm2Label', value: 'Charm 2 Options:' },
                 { type: 'radio', id: 'charm2Color', value: 'Red;Blue;Green' },
                 { type: 'quantity', id: 'charm2Quantity', value: 'Quantity' },
-                { type: 'img', id: 'charm2Image', value: '"Charm 2 Preview":"https://lh3.googleusercontent.com/pw/AP1GczPwsjVQj7zUD6Vbny3y9g5UvK1cR7u9hR9o5oW1A8Yf6UjU4o2E8eC5o9yW8nL3n6t7N6eG3e4y9x8w=w75-h75-s-no-gm?authuser=0"' } // Added image for Charm 2 - With caption
+                { type: 'img', id: 'charm2Image', value: '"Charm 2 Preview":"' + ConfigParameters.slideshowImages[1] + '"' } // Image for Charm 2 - URL from slideshow, WITH caption
             ]
         },
         {
@@ -51,7 +51,8 @@ class ConfigParameters {
             productForm: [ // Define form for Charm 3
                 { type: 'label', id: 'charm3Label', value: 'Charm 3 Choices:' },
                 { type: 'checkbox', id: 'charm3Features', value: 'Feature A;Feature B;Feature C' },
-                { type: 'quantity', id: 'charm3Quantity', value: 'Quantity' }
+                { type: 'quantity', id: 'charm3Quantity', value: 'Quantity' },
+                { type: 'img', id: 'charm3Image', value: '"":"' + ConfigParameters.slideshowImages[2] + '"' } // Image for Charm 3 - URL from slideshow, NO caption
             ]
         },
         {
