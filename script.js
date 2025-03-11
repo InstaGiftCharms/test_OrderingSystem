@@ -1,7 +1,14 @@
+// --- Import ConfigParameters if you are using JavaScript modules ---
+// import ConfigParameters from './configParameters.js';  // <--- UNCOMMENT THIS LINE IF YOU ARE USING MODULES
+
 document.addEventListener('DOMContentLoaded', function() {
+    // --- Configuration Parameters (if NOT using modules, ConfigParameters is assumed to be globally available from configParameters.js) ---
+    const configParameters = ConfigParameters; // <--- ACCESS ConfigParameters CLASS LIKE THIS
+
+
     // Slideshow functionality
     let slideIndex = 0;
-    const slides = ConfigParameters.slideshowImages; // Access static property using class name
+    const slides = configParameters.slideshowImages; // Access static property using class name
     const slideshowImage = document.getElementById('slideshow-image');
     const prevButton = document.getElementById('prev-button');
     const nextButton = document.getElementById('next-button');
@@ -50,11 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize slideshow
     createIndicators();
     updateSlide(slideIndex);
-    setInterval(nextSlide, ConfigParameters.slideshowInterval);
+    setInterval(nextSlide, configParameters.slideshowInterval); // Access static property
 
     // Populate shipping options dynamically
     const shippingOptionDropdown = document.getElementById('shippingOption');
-    ConfigParameters.shippingOptions.forEach(option => {
+    configParameters.shippingOptions.forEach(option => { // Access static property
         let optionElement = document.createElement('option');
         optionElement.value = option.optionName;
         optionElement.textContent = `${option.optionName} ${option.optionCost > 0 ? '(PHP ' + option.optionCost.toFixed(2) + ')' : '(FREE)'}`;
@@ -64,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set Shipping Options Explanation Text
     const shippingExplanation = document.getElementById('shipping-options-explanation');
     let explanationHTML = '';
-    ConfigParameters.shippingOptionText.forEach(paragraph => {
+    configParameters.shippingOptionText.forEach(paragraph => { // Access static property
         explanationHTML += `<p>${paragraph}</p>`;
     });
     shippingExplanation.innerHTML = explanationHTML;
@@ -77,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // --- Get Dynamic Form Data and Calculate Subtotal ---
         const productSelection = document.getElementById('productSelection').value;
         if (productSelection) {
-            const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === productSelection);
+            const selectedProductInfo = configParameters.productInfo.find(product => product.productName === productSelection); // Access static property
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formData = DynamicForm.getformData(selectedProductInfo.productForm);
                 // --- Basic Subtotal Calculation (needs to be product & form-aware) ---
@@ -92,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let shippingCost = 0;
         const selectedShippingOption = shippingOptionDropdown.value;
         if (selectedShippingOption) {
-            const selectedShipping = ConfigParameters.shippingOptions.find(option => option.optionName === selectedShippingOption);
+            const selectedShipping = configParameters.shippingOptions.find(option => option.optionName === selectedShippingOption); // Access static property
             if (selectedShipping) {
                 shippingCost = selectedShipping.optionCost;
             }
@@ -130,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Populate Product Selection Dropdown ---
     const productDropdown = document.getElementById('productSelection');
-    ConfigParameters.productInfo.forEach(product => {
+    configParameters.productInfo.forEach(product => { // Access static property
         let option = document.createElement('option');
         option.value = product.productName;
         option.textContent = product.productName;
@@ -144,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedProduct = productDropdown.value;
         if (selectedProduct) {
             // --- Get Dynamic Form Data ---
-            const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === selectedProduct);
+            const selectedProductInfo = configParameters.productInfo.find(product => product.productName === selectedProduct); // Access static property
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formData = DynamicForm.getformData(selectedProductInfo.productForm);
                 alert(`Added to Cart: ${selectedProduct}, Options: ${formData || 'None'}`); // Placeholder alert
@@ -166,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
         dynamicFormArea.innerHTML = ''; // Clear previous form
 
         if (selectedProductName) {
-            const selectedProductInfo = ConfigParameters.productInfo.find(product => product.productName === selectedProductName);
+            const selectedProductInfo = configParameters.productInfo.find(product => product.productName === selectedProductName); // Access static property
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formHTML = DynamicForm.drawform(selectedProductInfo.productForm);
                 dynamicFormArea.innerHTML = formHTML;
