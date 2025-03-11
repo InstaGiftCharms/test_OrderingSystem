@@ -342,7 +342,7 @@ header {
 }
 
 
-/* --- Styling for Dynamic Form Elements (Radio, Checkbox, Number, Label, Textbox) --- */
+/* --- Styling for Dynamic Form Elements (Radio, Checkbox, Number, Label, Textbox, Img) --- */
 
 /* Reduced Size for Label, Textbox, Number Inputs */
 #dynamic-form-area .dynamic-form-label,  /* Targets labels within dynamic form area */
@@ -409,11 +409,12 @@ div.radio-checkbox-option label.dynamic-form-label {  /*  <----- CORRECTED and M
 }
 
 
-/* --- Styling for Dynamic Form Image Field --- */
+/* --- Styling for Dynamic Form Image Field (img type) - UPDATED - WITH VISIBLE TEXT LABEL --- */
 .dynamic-form-img-container {
-    display: flex;          /* Use flexbox to align image and label */
-    align-items: center;     /* Vertically align image and label */
+    display: flex;          /* Use flexbox to align image and text horizontally */
+    align-items: center;     /* Vertically align image and text */
     margin-bottom: 10px;     /* Space below the image container */
+    justify-content: flex-start; /* Align items to the start of the container */
 }
 
 .dynamic-form-img {
@@ -421,10 +422,11 @@ div.radio-checkbox-option label.dynamic-form-label {  /*  <----- CORRECTED and M
     height: 75px;          /* Adjust image size as needed */
     border-radius: 50%;      /* Make image circular */
     object-fit: cover;      /* Ensure image covers circular area */
-    margin-right: 10px;      /* Space between image and label */
+    margin-right: 10px;      /* Add space between image and text */
 }
 
-.dynamic-form-img-caption {
-    font-size: 0.75em;      /* Style the caption text if you have one */
-    color: #777;
+.dynamic-form-img-visible-text {
+    font-size: 0.85em;      /* Adjust text size as needed */
+    color: #555;          /* Adjust text color as needed */
+    font-weight: normal;    /* Adjust text weight as needed */
 }
