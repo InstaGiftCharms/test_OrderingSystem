@@ -154,8 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedProductInfo = configParameters.productInfo.find(product => product.productName === selectedProduct); // Access static property
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formData = DynamicForm.getformData(selectedProductInfo.productForm);
+                console.log("CHECK");
                 console.log("Form Data for Product: " + selectedProduct, formData); // Console log only - NO ALERT
             } else {
+                console.log("CHECK");
                 console.log(`Added to Cart: ${selectedProduct} (No Options - no dynamic form data to collect)`); // Console log only - NO ALERT
             }
         } else {
