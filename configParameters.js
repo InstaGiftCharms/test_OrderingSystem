@@ -29,15 +29,17 @@ class ConfigParameters {
     // --- Product Information ---
     static productInfo = [
         {
-            productName: "Letter Bead Charms",
+            productName: "Solid Letter Name KeyChains",
             productForm: [ // Define form for Charm 1
-                { type: 'label', id: 'lbl_letterBeadCharm01', value: 'Select charm length:' },
-                { type: 'radio', id: 'rbtn_charmLength', value: 'Up to four (4) letters. (100.00 PHP);Around 5-6 letters. (150 PHP)' },
-                { type: 'label', id: 'lbl_letterBeadCharm02', value: 'Type the message in your charm below:' },
+                { type: 'label', id: 'lbl_01', value: 'Type your Keychain Name Below (Maximum of 4 letters only. Avail "Extra Letter" Add-On to make it a max of 5):' },
                 { type: 'textbox', id: 'txt_charmMsg', value: 'Type here' },
-                { type: 'label', id: 'lbl_letterBeadCharm03', value: 'Charm Add-ons:' },
-                { type: 'img', id: 'img_charmAddon01', value: '"Option #1: Insert Add-on Name Here (+ 5.00 PHP)":"https://lh3.googleusercontent.com/pw/AP1GczNCGWT6EZ5yV-SeNfZ0-YbV96-4AqQAug30GouSFn9l9R17E0xbmlmof9Dg64aQrv2BC0hYenO95GrCmFEBDaNaoptc0gnz6NSoIOtFrhS6kOtsk24mLH3k-EMAZiIiaSpC8mV40V-pyWJKnKsyWLS4hQ=w600-h600-s-no-gm?authuser=0"' }, // Image for Charm 1 - URL from slideshow, NO caption
-                { type: 'quantity', id: 'charm1Quantity', value: 'Quantity' }
+                { type: 'label', id: 'lbl_02', value: 'Charm Add-ons:' },
+                { type: 'img', id: 'img_charmAddon01', value: '"Add-on #1: Additional Letter (+ 10.00 PHP)":"https://lh3.googleusercontent.com/pw/AP1GczNCGWT6EZ5yV-SeNfZ0-YbV96-4AqQAug30GouSFn9l9R17E0xbmlmof9Dg64aQrv2BC0hYenO95GrCmFEBDaNaoptc0gnz6NSoIOtFrhS6kOtsk24mLH3k-EMAZiIiaSpC8mV40V-pyWJKnKsyWLS4hQ=w600-h600-s-no-gm?authuser=0"' },
+                { type: 'img', id: 'img_charmAddon01', value: '"Add-on #2: Big Charms (+ 10.00 PHP)":"https://lh3.googleusercontent.com/pw/AP1GczNCGWT6EZ5yV-SeNfZ0-YbV96-4AqQAug30GouSFn9l9R17E0xbmlmof9Dg64aQrv2BC0hYenO95GrCmFEBDaNaoptc0gnz6NSoIOtFrhS6kOtsk24mLH3k-EMAZiIiaSpC8mV40V-pyWJKnKsyWLS4hQ=w600-h600-s-no-gm?authuser=0"' },
+                { type: 'img', id: 'img_charmAddon01', value: '"Add-on #3: Small Charms (+ 5.00 PHP)":"https://lh3.googleusercontent.com/pw/AP1GczNCGWT6EZ5yV-SeNfZ0-YbV96-4AqQAug30GouSFn9l9R17E0xbmlmof9Dg64aQrv2BC0hYenO95GrCmFEBDaNaoptc0gnz6NSoIOtFrhS6kOtsk24mLH3k-EMAZiIiaSpC8mV40V-pyWJKnKsyWLS4hQ=w600-h600-s-no-gm?authuser=0"' },
+                { type: 'img', id: 'img_charmAddon01', value: '"Add-on #4: Phone Hook (+ 10.00 PHP)":"https://lh3.googleusercontent.com/pw/AP1GczNCGWT6EZ5yV-SeNfZ0-YbV96-4AqQAug30GouSFn9l9R17E0xbmlmof9Dg64aQrv2BC0hYenO95GrCmFEBDaNaoptc0gnz6NSoIOtFrhS6kOtsk24mLH3k-EMAZiIiaSpC8mV40V-pyWJKnKsyWLS4hQ=w600-h600-s-no-gm?authuser=0"' },
+                { type: 'checkbox', id: 'charmAddOnSelect', value: 'Add-On #1;Add-On #2;Add-On #3;Add-On #4' },
+                { type: 'quantity', id: 'charm1Quantity', value: 'Item Quantity' }
             ]
         },
         {
