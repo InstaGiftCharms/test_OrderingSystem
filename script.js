@@ -1,6 +1,15 @@
 // --- Import ConfigParameters if you are using JavaScript modules ---
 // import ConfigParameters from './configParameters.js';  // <--- UNCOMMENT THIS LINE IF YOU ARE USING MODULES
 
+// --- Function to Toggle Image Highlight - NOW IN GLOBAL SCOPE ---
+function toggleImageHighlight(imageId) {
+    const imgElement = document.getElementById(imageId);
+    if (imgElement) {
+        imgElement.classList.toggle('highlighted-img'); // Toggle CSS class
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // --- Configuration Parameters (if NOT using modules, ConfigParameters is assumed to be globally available from configParameters.js) ---
     const configParameters = ConfigParameters; // <--- ACCESS ConfigParameters CLASS LIKE THIS
@@ -185,13 +194,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-
-    // --- Function to Toggle Image Highlight ---
-    function toggleImageHighlight(imageId) {
-        const imgElement = document.getElementById(imageId);
-        if (imgElement) {
-            imgElement.classList.toggle('highlighted-img'); // Toggle CSS class
-        }
-    }
 
 });
