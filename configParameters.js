@@ -29,7 +29,7 @@ class ConfigParameters {
     // --- Product Information ---
     static productInfo = [
         {
-            productName: "Solid Letter Name KeyChains",
+            productName: "Solid Letter Name KeyChains (150.00 PHP)",
             productForm: [ // Define form for Charm 1
                 { type: 'label', id: 'lbl_01', value: 'Keychain Name (Maximum of 4 letters):' },
                 { type: 'textbox', id: 'txt_charmMsg', value: 'Type here' },
