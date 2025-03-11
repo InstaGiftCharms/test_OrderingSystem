@@ -34,6 +34,10 @@
  * 4. CSS Styling:
  *    The class generates HTML elements with CSS classes for styling (see class comments).
  */
+/**
+ * DynamicForm Class for Generating HTML Forms from Configuration Objects.
+ * ... (Documentation remains the same) ...
+ */
 class DynamicForm {
     /**
      * Generates HTML for a dynamic form based on the provided form configuration.
@@ -47,9 +51,9 @@ class DynamicForm {
             formHTML += `<div class="form-group" id="dynamic-form-area">`; // OPENING form-group div here for all dynamic elements
 
             if (field.type === 'label') {
-                formHTML += `<label id="${field.id}" class="dynamic-form-label">${field.value}</label>`; // REMOVED <br>
-            } else if (field.type !== 'img' && field.type !== 'radio' && field.type !== 'checkbox') { // Add label for all types EXCEPT 'img', 'radio' and 'checkbox'
-                formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label>`; // REMOVED <br>
+                formHTML += `<label id="${field.id}" class="dynamic-form-label">${field.value}</label>`;
+            } else if (field.type !== 'img' && field.type !== 'radio' && field.type !== 'checkbox' && field.type !== 'textbox') { // Exclude 'textbox' from label generation
+                formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label>`;
             }
 
 
@@ -76,9 +80,9 @@ class DynamicForm {
                     </div>`;
                 });
             } else if (field.type === 'quantity') {
-                formHTML += `<input type="number" id="${field.id}" name="${field.id}" placeholder="${field.value}" value="0" class="dynamic-form-input">`; // REMOVED <br>
+                formHTML += `<input type="number" id="${field.id}" name="${field.id}" placeholder="${field.value}" value="0" class="dynamic-form-input">`;
             } else if (field.type === 'textbox') {
-                formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input">`; // REMOVED <br>
+                formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input">`;
             } else if (field.type === 'img') {
                 // --- Handling the 'img' field type - WITH VISIBLE TEXT LABEL ---
                 if (field.value) {
@@ -97,7 +101,7 @@ class DynamicForm {
                             altText = visibleText || defaultAltText; // Use caption as altText if available, otherwise default
                         } else {
                             // If split fails, assume whole value is URL (no caption)
-                            imageURL = field.value.replace(/"/g, ''); // Remove all quotes, treat as URL
+                            imageURL = valueParts[1].replace(/"/g, ''); // Remove all quotes, treat as URL
                             visibleText = field.id; // Fallback visible text is field ID
                             altText = defaultAltText; // Default alt text
                             console.warn(`DynamicForm: Img field value format incorrect for id: ${field.id}. Assuming URL only.`);
