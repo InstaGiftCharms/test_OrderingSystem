@@ -48,7 +48,7 @@ class DynamicForm {
 
             if (field.type === 'label') {
                 formHTML += `<label id="${field.id}" class="dynamic-form-label">${field.value}</label><br>`; // Label displays 'value' as text
-            } else {
+            } else if (field.type !== 'img') { // Add label for all types EXCEPT 'img'
                 formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label><br>`; // Label for input fields
             }
 
@@ -77,15 +77,15 @@ class DynamicForm {
             } else if (field.type === 'textbox') {
                 formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input"><br>`; // 'value' is placeholder
             } else if (field.type === 'img') {
-                // --- Handling the 'img' field type - UPDATED PARSING ---
+                // --- Handling the 'img' field type - UPDATED PARSING - NO LABEL ---
                 if (field.value) {
-                    let caption = '';
                     let imageURL = '';
-                    // Check if value starts with a quote indicating caption format
+                    let altText = field.altText || `Image for ${field.id}`; // Use altText from config or default
+
+                    // Check if value starts with a quote indicating caption format (even though we are not using caption now, we parse it to get the URL correctly)
                     if (field.value.startsWith('"')) {
                         const valueParts = field.value.split('":"'); // Split by ":" only ONCE after first quote
                         if (valueParts.length === 2) {
-                            caption = valueParts[0].replace('"', ''); // Get caption
                             imageURL = valueParts[1].replace('"', '').slice(0, -1); // Get URL and remove trailing quote
                         } else {
                             // If split fails, assume whole value is URL (no caption) and log error
@@ -97,11 +97,9 @@ class DynamicForm {
                         imageURL = field.value.replace(/"/g, ''); // Remove any quotes, treat as URL
                     }
 
-
                     formHTML += `
                     <div class="dynamic-form-img-container">
-                        <img id="${field.id}" src="${imageURL}" alt="${caption}" class="dynamic-form-img">
-                        ${caption ? `<span class="dynamic-form-img-caption">${caption}</span>` : ''}
+                        <img id="${field.id}" src="${imageURL}" alt="${altText}" class="dynamic-form-img">
                     </div>`;
                 } else {
                     formHTML += `<p>Image value not provided for field: ${field.id}</p>`; // Fallback if value is missing
