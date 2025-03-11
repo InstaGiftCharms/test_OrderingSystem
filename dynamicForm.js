@@ -34,6 +34,7 @@
  * 4. CSS Styling:
  *    The class generates HTML elements with CSS classes for styling (see class comments).
  */
+
 class DynamicForm {
     /**
      * Generates HTML for a dynamic form based on the provided form configuration.
@@ -77,29 +78,40 @@ class DynamicForm {
             } else if (field.type === 'textbox') {
                 formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input"><br>`; // 'value' is placeholder
             } else if (field.type === 'img') {
-                // --- Handling the 'img' field type - UPDATED PARSING - NO LABEL ---
+                // --- Handling the 'img' field type - WITH VISIBLE TEXT LABEL ---
                 if (field.value) {
                     let imageURL = '';
-                    let altText = field.altText || `Image for ${field.id}`; // Use altText from config or default
+                    let visibleText = ''; // Text to display next to the image
+                    const defaultAltText = `Image for ${field.id}`;
+                    let altText = defaultAltText; // Default alt text if no better option
 
-                    // Check if value starts with a quote indicating caption format (even though we are not using caption now, we parse it to get the URL correctly)
+
+                    // Parse field.value to extract URL and potential caption for visible text
                     if (field.value.startsWith('"')) {
                         const valueParts = field.value.split('":"'); // Split by ":" only ONCE after first quote
                         if (valueParts.length === 2) {
+                            visibleText = valueParts[0].replace('"', ''); // Use caption as visible text
                             imageURL = valueParts[1].replace('"', '').slice(0, -1); // Get URL and remove trailing quote
+                            altText = visibleText || defaultAltText; // Use caption as altText if available, otherwise default
                         } else {
-                            // If split fails, assume whole value is URL (no caption) and log error
+                            // If split fails, assume whole value is URL (no caption)
                             imageURL = field.value.replace(/"/g, ''); // Remove all quotes, treat as URL
+                            visibleText = field.id; // Fallback visible text is field ID
+                            altText = defaultAltText; // Default alt text
                             console.warn(`DynamicForm: Img field value format incorrect for id: ${field.id}. Assuming URL only.`);
                         }
                     } else {
                         // If no starting quote, assume whole value is URL (no caption)
                         imageURL = field.value.replace(/"/g, ''); // Remove any quotes, treat as URL
+                        visibleText = field.id; // Fallback visible text is field ID
+                        altText = defaultAltText; // Default alt text
                     }
+
 
                     formHTML += `
                     <div class="dynamic-form-img-container">
                         <img id="${field.id}" src="${imageURL}" alt="${altText}" class="dynamic-form-img">
+                        <span class="dynamic-form-img-visible-text">${visibleText}</span>
                     </div>`;
                 } else {
                     formHTML += `<p>Image value not provided for field: ${field.id}</p>`; // Fallback if value is missing
