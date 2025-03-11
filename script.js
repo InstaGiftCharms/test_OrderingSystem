@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (productSelection) {
             const selectedProductInfo = configParameters.productInfo.find(product => product.productName === productSelection); // Access static property
             if (selectedProductInfo && selectedProductInfo.productForm) {
-                const formData = DynamicForm.getformData(selectedProductInfo.productForm);
+                const formData = DynamicForm.getFormData(selectedProductInfo.productForm);
                 // --- Basic Subtotal Calculation (needs to be product & form-aware) ---
                 // --- Placeholder: Assuming each product has a base price of 100 for now ---
                 // subtotal += 100; //  <--- Placeholder subtotal calculation - needs to be dynamic  - REMOVED THIS LINE
@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Add to Cart Button Functionality  ---
-    const addToCartButton = document.getElementById('add-to-cart-button'); // --- CORRECTED ID to 'add-to-cart-button' to match your code (was 'add-cart-button' in previous response) ---
+    const addToCartButton = document.getElementById('add-to-cart-button'); // --- CORRECTED ID to 'add-to-cart-button' to match your code
     addToCartButton.addEventListener('click', function() {
         const selectedProduct = productDropdown.value;
         if (selectedProduct) {
@@ -154,14 +154,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedProductInfo = configParameters.productInfo.find(product => product.productName === selectedProduct); // Access static property
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formData = DynamicForm.getformData(selectedProductInfo.productForm);
-                console.log("Form Data for Product: " + selectedProduct, formData); // <--- UPDATED to console.log and more info
-                //alert(`Form data for product "${selectedProduct}" has been logged to the console.`); // Optional alert for user feedback
+                console.log("Form Data for Product: " + selectedProduct, formData); // Console log only - NO ALERT
+                // alert(`Form data for product "${selectedProduct}" has been logged to the console.`); // REMOVED ALERT
             } else {
-                console.log(`Added to Cart: ${selectedProduct} (No Options - no dynamic form data to collect)`); //  <--- UPDATED to console.log and more info
-                //alert(`Added to Cart: ${selectedProduct} (No Options)`); // Placeholder alert - kept for no-options case
+                console.log(`Added to Cart: ${selectedProduct} (No Options - no dynamic form data to collect)`); // Console log only - NO ALERT
+                // alert(`Added to Cart: ${selectedProduct} (No Options)`); // REMOVED ALERT
             }
         } else {
-            alert("Please select a product before adding to cart."); // Kept original alert for no product selected
+            // alert("Please select a product before adding to cart."); // KEPT ALERT - this one is important for user guidance if no product selected
         }
     });
 
