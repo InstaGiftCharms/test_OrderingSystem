@@ -84,7 +84,7 @@ class DynamicForm {
             } else if (field.type === 'textbox') {
                 formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input">`;
             } else if (field.type === 'img') {
-                // --- Handling the 'img' field type - WITH VISIBLE TEXT LABEL ---
+                // --- Handling the 'img' field type - WITH VISIBLE TEXT LABEL - AND CLICK HIGHLIGHT ---
                 if (field.value) {
                     let imageURL = '';
                     let visibleText = ''; // Text to display next to the image
@@ -116,7 +116,7 @@ class DynamicForm {
 
                     formHTML += `
                     <div class="dynamic-form-img-container">
-                        <img id="${field.id}" src="${imageURL}" alt="${altText}" class="dynamic-form-img">
+                        <img id="${field.id}" src="${imageURL}" alt="${altText}" class="dynamic-form-img" onclick="toggleImageHighlight('${field.id}')">
                         <span class="dynamic-form-img-visible-text">${visibleText}</span>
                     </div>`;
                 } else {
@@ -135,7 +135,7 @@ class DynamicForm {
      * @param {Array<Object>} formConfig - The same form configuration array used to generate the form.
      * @returns {Object} An object containing the form data, where keys are field IDs and values are user inputs.
      */
-    static getformData(formConfig) {
+    static getFormData(formConfig) {
         const formData = {};
         formConfig.forEach(field => {
             if (field.type === 'radio' || field.type === 'checkbox') {
@@ -143,8 +143,12 @@ class DynamicForm {
                 formData[field.id] = checkedValue ? checkedValue.value : null;
             } else if (field.type === 'quantity' || field.type === 'textbox') {
                 formData[field.id] = document.getElementById(field.id).value;
+            } else if (field.type === 'img') { // --- Check for highlighted images ---
+                const imgElement = document.getElementById(field.id);
+                if (imgElement && imgElement.classList.contains('highlighted-img')) {
+                    formData[field.id] = "SELECTED";
+                }
             }
-            // 'img' and 'label' types are for display only, no data to get
         });
         return formData;
     }
