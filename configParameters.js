@@ -33,7 +33,8 @@ class ConfigParameters {
             productForm: [ // Define form for Charm 1
                 { type: 'label', id: 'charm1Label', value: 'Charm 1 Details:' },
                 { type: 'textbox', id: 'charm1Text', value: 'Enter your text for Charm 1' },
-                { type: 'quantity', id: 'charm1Quantity', value: 'Quantity' }
+                { type: 'quantity', id: 'charm1Quantity', value: 'Quantity' },
+                { type: 'img', id: 'charm1Image', value: '"Charm 1 Preview":"https://lh3.googleusercontent.com/pw/AP1GczP0OSyCw19F_ONk0Zl5cngKbsAY-LWy414T8VCKuobPwz5a9n46RkNvaz48BZB4H-iGHyQeEaTY03504T0q18iwn_Z-Jj6yOgbEUxKlM1o4j_5T-xnyT4N6asgBN7JO31tPQRz4o5g09S4iM5iR54=w75-h75-s-no-gm?authuser=0"' } // Added image for Charm 1
             ]
         },
         {
@@ -41,7 +42,8 @@ class ConfigParameters {
             productForm: [ // Define form for Charm 2
                 { type: 'label', id: 'charm2Label', value: 'Charm 2 Options:' },
                 { type: 'radio', id: 'charm2Color', value: 'Red;Blue;Green' },
-                { type: 'quantity', id: 'charm2Quantity', value: 'Quantity' }
+                { type: 'quantity', id: 'charm2Quantity', value: 'Quantity' },
+                { type: 'img', id: 'charm2Image', value: '"Charm 2 Preview":"https://lh3.googleusercontent.com/pw/AP1GczPwsjVQj7zUD6Vbny3y9g5UvK1cR7u9hR9o5oW1A8Yf6UjU4o2E8eC5o9yW8nL3n6t7N6eG3e4y9x8w=w75-h75-s-no-gm?authuser=0"' } // Added image for Charm 2
             ]
         },
         {
@@ -49,7 +51,8 @@ class ConfigParameters {
             productForm: [ // Define form for Charm 3
                 { type: 'label', id: 'charm3Label', value: 'Charm 3 Choices:' },
                 { type: 'checkbox', id: 'charm3Features', value: 'Feature A;Feature B;Feature C' },
-                { type: 'quantity', id: 'charm3Quantity', value: 'Quantity' }
+                { type: 'quantity', id: 'charm3Quantity', value: 'Quantity' },
+                { type: 'img', id: 'charm3Image', value: '"Charm 3 Preview":"https://lh3.googleusercontent.com/pw/AP1GczM2n6xreZZnaj-Vb_S6GsVsLMdr1y7n-l6cK7zR9jG3rL4o5r5cR7xP3uK2t8eN9l0q-v2x8b6n9m0o=w75-h75-s-no-gm?authuser=0"' } // Added image for Charm 3
             ]
         },
         {
@@ -58,15 +61,17 @@ class ConfigParameters {
                 { type: 'label', id: 'charmSetALabel', value: 'Charm Set A Customization:' },
                 { type: 'textbox', id: 'charmSetAText1', value: 'Enter text for part 1' },
                 { type: 'textbox', id: 'charmSetAText2', value: 'Enter text for part 2' },
-                { type: 'quantity', id: 'charmSetAQuantity', value: 'Quantity' }
-            ]
-        },
-        {
-            productName: "Custom Charm Design",
-            productForm: [ // Define form for Custom Charm Design
-                { type: 'label', id: 'customCharmLabel', value: 'Custom Charm Design Request:' },
-                { type: 'textarea', id: 'customCharmDescription', value: 'Describe your custom charm design' } // Textarea type is missing in DynamicForm, you might want to add it later. For now, using textbox as placeholder
-            ]
-        }
-    ];
+                { type: 'quantity', id: 'charmSetAQuantity', value: 'Quantity' },
+                { type: 'img', id: 'charmSetAImage', value: '"Charm Set A Preview":"https://lh3.googleusercontent.com/pw/AP1GczO3l4-9rR1_mF6z3iT6rJ8uY5uI9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU7i9oP2q7rW3tE5yU
+
+/* Updated Dynamic Form Image Styling */
+.dynamic-form-area .dynamic-form-label {
+    font-size: 0.75em; /* Reduced font size to 75% */
+}
+
+/* Updated Textbox and Number Input Styling */
+.dynamic-form-area input[type="text"].dynamic-form-input,
+.dynamic-form-area input[type="number"].dynamic-form-input {
+    font-size: 0.75em; /* Reduced font size to 75% */
+    padding: 7px; /* Reduced padding - adjust as needed */
 }
