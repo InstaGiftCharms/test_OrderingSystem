@@ -434,3 +434,9 @@ div.radio-checkbox-option label.dynamic-form-label {  /*  <----- CORRECTED and M
     color: #555;          /* Adjust text color as needed */
     font-weight: normal;    /* Adjust text weight as needed */
 }
+
+/* --- Styling for Highlighted Dynamic Form Image (img type) --- */
+.dynamic-form-img.highlighted-img {
+    border: 4px solid black; /* Thick black outline */
+    box-sizing: border-box; /* Ensure border is inside, not adding to dimensions */
+}
