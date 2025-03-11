@@ -161,11 +161,11 @@ class DynamicForm {
                 }
             }
 
-            if (fieldValue !== null) { // Only add to formData if there's a value (or label for images)
+            // --- Apply filtering conditions BEFORE adding to formData ---
+            if (fieldValue !== null && fieldValue !== "" && !(field.type === 'img' && fieldValue === null)) { // <----- FILTERING LOGIC
                 formData[field.id] = prefix + fieldValue; // <----- ADD PREFIX HERE - now using per-field prefix
-            } else {
-                formData[field.id] = prefix + ""; // Still add the field ID with just the prefix if no value
             }
+            // --- If fieldValue is null, empty string, or unhighlighted image, it will NOT be added to formData
         });
         return formData;
     }
