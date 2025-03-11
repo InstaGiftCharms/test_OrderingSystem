@@ -49,11 +49,13 @@ class DynamicForm {
 
             if (field.type === 'label') {
                 formHTML += `<label id="${field.id}" class="dynamic-form-label">${field.value}</label><br>`; // Label displays 'value' as text
-            } else if (field.type !== 'img') { // Add label for all types EXCEPT 'img'
+            } else if (field.type !== 'img' && field.type !== 'radio' && field.type !== 'checkbox') { // Add label for all types EXCEPT 'img', 'radio' and 'checkbox'
                 formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label><br>`; // Label for input fields
             }
 
+
             if (field.type === 'radio') {
+                // formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label><br>`; // REMOVED - unwanted top label
                 const options = field.value.split(';'); // Options are semicolon-separated in 'value'
                 options.forEach(option => {
                     const optionId = `${field.id}_${option.replace(/\s/g, '')}`; // Create unique ID for each radio option
@@ -64,6 +66,7 @@ class DynamicForm {
                     </div>`;
                 });
             } else if (field.type === 'checkbox') {
+                // formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label><br>`; // REMOVED - unwanted top label
                 const options = field.value.split(';'); // Options are semicolon-separated in 'value'
                 options.forEach(option => {
                     const optionId = `${field.id}_${option.replace(/\s/g, '')}`; // Create unique ID for each checkbox option
