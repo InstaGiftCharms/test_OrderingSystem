@@ -52,7 +52,6 @@ class DynamicForm {
                 formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label><br>`; // Label for input fields
             }
 
-
             if (field.type === 'radio') {
                 const options = field.value.split(';'); // Options are semicolon-separated in 'value'
                 options.forEach(option => {
@@ -78,19 +77,26 @@ class DynamicForm {
             } else if (field.type === 'textbox') {
                 formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input"><br>`; // 'value' is placeholder
             } else if (field.type === 'img') {
-                // --- Handling the 'img' field type --- (unchanged from before)
+                // --- Handling the 'img' field type - UPDATED PARSING ---
                 if (field.value) {
-                    // Parse the value string: "[caption]":"[URL]"
-                    const valueParts = field.value.split('":"');
                     let caption = '';
                     let imageURL = '';
-
-                    if (valueParts.length === 2) {
-                        caption = valueParts[0].replace('"', ''); // Remove leading quote from caption
-                        imageURL = valueParts[1].replace('"', '').replace('"', ''); // Remove quotes from URL
-                    } else if (valueParts.length === 1) {
-                        imageURL = valueParts[0].replace('"', '').replace('"', ''); // If no caption, assume value is just URL
+                    // Check if value starts with a quote indicating caption format
+                    if (field.value.startsWith('"')) {
+                        const valueParts = field.value.split('":"'); // Split by ":" only ONCE after first quote
+                        if (valueParts.length === 2) {
+                            caption = valueParts[0].replace('"', ''); // Get caption
+                            imageURL = valueParts[1].replace('"', '').slice(0, -1); // Get URL and remove trailing quote
+                        } else {
+                            // If split fails, assume whole value is URL (no caption) and log error
+                            imageURL = field.value.replace(/"/g, ''); // Remove all quotes, treat as URL
+                            console.warn(`DynamicForm: Img field value format incorrect for id: ${field.id}. Assuming URL only.`);
+                        }
+                    } else {
+                        // If no starting quote, assume whole value is URL (no caption)
+                        imageURL = field.value.replace(/"/g, ''); // Remove any quotes, treat as URL
                     }
+
 
                     formHTML += `
                     <div class="dynamic-form-img-container">
