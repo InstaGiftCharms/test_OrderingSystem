@@ -260,15 +260,15 @@ header {
 /* Shipping Option Explanation Text Styling - FONT SIZE REDUCED to 0.75em */
 #shipping-options-explanation p {
     font-size: 0.75em; /*  <----- REDUCED font size to 0.75em */
-    color: #777;       /* Muted dark gray color */
-    line-height: 1.5;    /* Improved line spacing for readability */
+    color: #777;      /* Muted dark gray color */
+    line-height: 1.5;     /* Improved line spacing for readability */
     margin-bottom: 10px; /* Space between paragraphs */
 }
 
 /* Optional: Style the bolded option names within the explanation */
 #shipping-options-explanation p strong {
-    font-weight: bold;      /* Make the bold text even bolder if needed */
-    color: #555;           /* Slightly darker color for emphasis */
+    font-weight: bold;       /* Make the bold text even bolder if needed */
+    color: #555;          /* Slightly darker color for emphasis */
 }
 
 
@@ -316,7 +316,7 @@ header {
 
 .order-total-area .price-value {
     font-size: 1.2em; /* Even larger for price value */
-    color: #007bff;    /* Brand color or a color to emphasize price */
+    color: #007bff;      /* Brand color or a color to emphasize price */
     font-weight: bold; /* Make price value bold */
 }
 
@@ -342,12 +342,25 @@ header {
 }
 
 
-/* --- Styling for Dynamic Form Elements (Radio, Checkbox, Number) --- */
+/* --- Styling for Dynamic Form Elements (Radio, Checkbox, Number, Label, Textbox) --- */
+
+/* Reduced Size for Label, Textbox, Number Inputs */
+#dynamic-form-area .dynamic-form-label,  /* Targets labels within dynamic form area */
+#dynamic-form-area input[type="text"].dynamic-form-input, /* Targets text inputs */
+#dynamic-form-area input[type="number"].dynamic-form-input { /* Targets number inputs */
+    font-size: 0.75em; /* Reduced to 75% of the original size */
+}
+/* You can also reduce padding if inputs are too tall after reducing font-size */
+#dynamic-form-area input[type="text"].dynamic-form-input,
+#dynamic-form-area input[type="number"].dynamic-form-input {
+    padding: 7px; /* Reduced padding - adjust as needed */
+}
+
 
 /* Style labels associated with dynamic form elements - FONT SIZE REDUCED and display adjusted */
-div.radio-checkbox-option label.dynamic-form-label { /*  <----- CORRECTED and MORE SPECIFIC SELECTOR */
+div.radio-checkbox-option label.dynamic-form-label {  /*  <----- CORRECTED and MORE SPECIFIC SELECTOR */
     display: inline-block; /*  <-----  Horizontal Alignment Fix - inline-block */
-    font-size: 0.75em; /* Reduced font size to 75% */
+    font-size: 0.75em; /* Reduced font size to 75% - MATCHED to other dynamic labels/inputs */
     font-weight: normal;
     color: #555;
     vertical-align: middle;
@@ -356,20 +369,20 @@ div.radio-checkbox-option label.dynamic-form-label { /*  <----- CORRECTED and MO
 
 /* Styling for radio and checkbox containers to position text to the right */
 .dynamic-form-area div.radio-checkbox-option {
-    display: flex;           /* **IMPORTANT: Use flexbox for horizontal alignment** */
+    display: flex;         /* **IMPORTANT: Use flexbox for horizontal alignment** */
     align-items: center;     /* Vertically align items in container */
-    margin-bottom: 10px;    /* Space between options */
+    margin-bottom: 10px;     /* Space between options */
 }
 
 .dynamic-form-area div.radio-checkbox-option input[type="radio"],
 .dynamic-form-area div.radio-checkbox-option input[type="checkbox"] {
     margin-right: 5px;      /* Space between button/checkbox and text */
-    margin-bottom: 0;       /* Reset bottom margin from general rule */
+    margin-bottom: 0;        /* Reset bottom margin from general rule */
 }
 
 
 /* Corrected Number Input Styling - Using #dynamic-form-area ID */
-#dynamic-form-area input[type="number"].dynamic-form-input { /*  <----- CORRECTED SELECTOR using #dynamic-form-area ID */
+#dynamic-form-area input[type="number"].dynamic-form-input {  /*  <----- CORRECTED SELECTOR using #dynamic-form-area ID */
     width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ddd;
@@ -393,4 +406,25 @@ div.radio-checkbox-option label.dynamic-form-label { /*  <----- CORRECTED and MO
 
 .form-group label {
     vertical-align: middle;
+}
+
+
+/* --- Styling for Dynamic Form Image Field --- */
+.dynamic-form-img-container {
+    display: flex;          /* Use flexbox to align image and label */
+    align-items: center;     /* Vertically align image and label */
+    margin-bottom: 10px;     /* Space below the image container */
+}
+
+.dynamic-form-img {
+    width: 75px;           /* Adjust image size as needed */
+    height: 75px;          /* Adjust image size as needed */
+    border-radius: 50%;      /* Make image circular */
+    object-fit: cover;      /* Ensure image covers circular area */
+    margin-right: 10px;      /* Space between image and label */
+}
+
+.dynamic-form-img-caption {
+    font-size: 0.75em;      /* Style the caption text if you have one */
+    color: #777;
 }
