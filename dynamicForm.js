@@ -101,7 +101,7 @@ class DynamicForm {
                             altText = visibleText || defaultAltText; // Use caption as altText if available, otherwise default
                         } else {
                             // If split fails, assume whole value is URL (no caption)
-                            imageURL = valueParts[1].replace(/"/g, ''); // Remove all quotes, treat as URL
+                            imageURL = field.value.replace(/"/g, ''); // Remove all quotes, treat as URL
                             visibleText = field.id; // Fallback visible text is field ID
                             altText = defaultAltText; // Default alt text
                             console.warn(`DynamicForm: Img field value format incorrect for id: ${field.id}. Assuming URL only.`);
@@ -143,10 +143,13 @@ class DynamicForm {
                 formData[field.id] = checkedValue ? checkedValue.value : null;
             } else if (field.type === 'quantity' || field.type === 'textbox') {
                 formData[field.id] = document.getElementById(field.id).value;
-            } else if (field.type === 'img') { // --- Check for highlighted images ---
+            } else if (field.type === 'img') { // --- Check for highlighted images and get their labels ---
                 const imgElement = document.getElementById(field.id);
                 if (imgElement && imgElement.classList.contains('highlighted-img')) {
-                    formData[field.id] = "SELECTED";
+                    // Get the visible text (label) from the sibling span element
+                    const labelSpan = imgElement.nextElementSibling; // Assuming span is immediately after img
+                    const imageLabel = labelSpan ? labelSpan.textContent : null; // Get textContent if span exists
+                    formData[field.id] = imageLabel; // Use the label as the value in formData
                 }
             }
         });
