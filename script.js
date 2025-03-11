@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
     configParameters.shippingOptions.forEach(option => { // Access static property
         let optionElement = document.createElement('option');
         optionElement.value = option.optionName;
-        optionElement.textContent = `${option.optionName} ${option.optionCost > 0 ? '(PHP ' + option.optionCost.toFixed(2) + ')' : '(FREE)'}`;
+        optionElement.textContent = `${option.optionName} ${option.optionCost > 0 ? '(PHP ' + option.optionCost.toFixed(2) + ')' : ''}`;
         shippingOptionDropdown.appendChild(optionElement);
     });
 
