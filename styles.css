@@ -354,6 +354,8 @@ header {
 #dynamic-form-area input[type="text"].dynamic-form-input,
 #dynamic-form-area input[type="number"].dynamic-form-input {
     padding: 7px; /* Reduced padding - adjust as needed */
+    height: auto; /*  <----- ADDED: Reset height to 'auto' to let padding and font-size control height */
+    line-height: normal; /*  <----- ADDED: Reset line-height to 'normal' */
 }
 
 
@@ -384,16 +386,18 @@ div.radio-checkbox-option label.dynamic-form-label {  /*  <----- CORRECTED and M
 /* Corrected Number Input Styling - Using #dynamic-form-area ID */
 #dynamic-form-area input[type="number"].dynamic-form-input {  /*  <----- CORRECTED SELECTOR using #dynamic-form-area ID */
     width: calc(100% - 20px);
-    padding: 10px;
+    padding: 10px; /*  <----- CHANGED padding to 10px to match general inputs */
     border: 1px solid #ddd;
     border-radius: 25px;
-    font-size: 1em;
+    font-size: 1em; /*  <----- CHANGED font-size to 1em to match general inputs */
     box-sizing: border-box;
     display: block;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     margin-bottom: 10px;
+    height: auto; /*  <----- ADDED: Reset height to 'auto' to let padding and font-size control height - MATCH TEXTBOX */
+    line-height: normal; /*  <----- ADDED: Reset line-height to 'normal' - MATCH TEXTBOX */
 }
 
 /* Optional: Adjust spacing for radio and checkboxes in form-group - KEPT */
