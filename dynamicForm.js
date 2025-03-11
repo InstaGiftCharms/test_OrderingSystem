@@ -34,7 +34,6 @@
  * 4. CSS Styling:
  *    The class generates HTML elements with CSS classes for styling (see class comments).
  */
-
 class DynamicForm {
     /**
      * Generates HTML for a dynamic form based on the provided form configuration.
@@ -48,9 +47,9 @@ class DynamicForm {
             formHTML += `<div class="form-group" id="dynamic-form-area">`; // OPENING form-group div here for all dynamic elements
 
             if (field.type === 'label') {
-                formHTML += `<label id="${field.id}" class="dynamic-form-label">${field.value}</label><br>`; // Label displays 'value' as text
+                formHTML += `<label id="${field.id}" class="dynamic-form-label">${field.value}</label>`; // REMOVED <br>
             } else if (field.type !== 'img' && field.type !== 'radio' && field.type !== 'checkbox') { // Add label for all types EXCEPT 'img', 'radio' and 'checkbox'
-                formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label><br>`; // Label for input fields
+                formHTML += `<label for="${field.id}" class="dynamic-form-label">${field.value}:</label>`; // REMOVED <br>
             }
 
 
@@ -77,9 +76,9 @@ class DynamicForm {
                     </div>`;
                 });
             } else if (field.type === 'quantity') {
-                formHTML += `<input type="number" id="${field.id}" name="${field.id}" placeholder="${field.value}" value="0" class="dynamic-form-input"><br>`; // 'value' is placeholder, default value 0
+                formHTML += `<input type="number" id="${field.id}" name="${field.id}" placeholder="${field.value}" value="0" class="dynamic-form-input">`; // REMOVED <br>
             } else if (field.type === 'textbox') {
-                formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input"><br>`; // 'value' is placeholder
+                formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input">`; // REMOVED <br>
             } else if (field.type === 'img') {
                 // --- Handling the 'img' field type - WITH VISIBLE TEXT LABEL ---
                 if (field.value) {
