@@ -155,13 +155,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formData = DynamicForm.getformData(selectedProductInfo.productForm);
                 console.log("Form Data for Product: " + selectedProduct, formData); // Console log only - NO ALERT
-                // alert(`Form data for product "${selectedProduct}" has been logged to the console.`); // REMOVED ALERT
             } else {
                 console.log(`Added to Cart: ${selectedProduct} (No Options - no dynamic form data to collect)`); // Console log only - NO ALERT
-                // alert(`Added to Cart: ${selectedProduct} (No Options)`); // REMOVED ALERT
             }
         } else {
-            // alert("Please select a product before adding to cart."); // KEPT ALERT - this one is important for user guidance if no product selected
+            alert("Please select a product before adding to cart."); // KEPT ALERT - this one is important for user guidance if no product selected
         }
     });
 
