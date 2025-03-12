@@ -163,10 +163,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedProductInfo = configParameters.productInfo.find(product => product.productName === selectedProduct); // Access static property
             if (selectedProductInfo && selectedProductInfo.productForm) {
                 const formData = DynamicForm.getFormData(selectedProductInfo.productForm);
-                console.log("Form Data for Product: " + selectedProduct, formData); // Console log only - NO ALERT
+                console.log("Form Data for Product: " + selectedProduct, formData);
                 // alert(`Form data for product "${selectedProduct}" has been logged to the console.`); // REMOVED ALERT
             } else {
-                console.log(`Added to Cart: ${selectedProduct} (No Options - no dynamic form data to collect)`); // Console log only - NO ALERT
+                console.log(`Added to Cart: ${selectedProduct} (No Options - no dynamic form data to collect)`);
                 // alert(`Added to Cart: ${selectedProduct} (No Options)`); // REMOVED ALERT
             }
         } else {
@@ -193,6 +193,59 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+
+    // ---  Function to put a Cart Item in "Your Cart" area ---
+    function putACartItem(inp_Text, inp_Num, inp_imgURL) {
+        const cartArea = document.querySelector('#dynamic-form-area'); // Select the dynamic form area - we will place cart items here for now
+        if (!cartArea) {
+            console.error("Cart area not found!");
+            return;
+        }
+
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.classList.add('cart-item'); // Add a class for styling if needed
+
+        const imageContainer = document.createElement('div');
+        imageContainer.classList.add('cart-item-image-container');
+        const imageElem = document.createElement('img');
+        imageElem.src = inp_imgURL;
+        imageElem.alt = "Cart Item Image";
+        imageElem.classList.add('cart-item-image');
+        imageContainer.appendChild(imageElem);
+
+        const textContainer = document.createElement('div');
+        textContainer.classList.add('cart-item-text-container');
+        const textElem = document.createElement('p');
+        textElem.classList.add('cart-item-text');
+        textElem.textContent = inp_Text;
+        textContainer.appendChild(textElem);
+
+        const quantityContainer = document.createElement('div');
+        quantityContainer.classList.add('cart-item-quantity-container');
+        const quantityElem = document.createElement('span');
+        quantityElem.classList.add('cart-item-quantity');
+        quantityElem.textContent = inp_Num + " X";
+        quantityContainer.appendChild(quantityElem);
+
+        const removeButton = document.createElement('button');
+        removeButton.classList.add('cart-item-remove-button');
+        removeButton.textContent = "X"; // Placeholder button text
+        // --- Add event listener for remove button functionality later ---
+        quantityContainer.appendChild(removeButton);
+
+
+        cartItemDiv.appendChild(imageContainer);
+        cartItemDiv.appendChild(textContainer);
+        cartItemDiv.appendChild(quantityContainer);
+
+        cartArea.appendChild(cartItemDiv); // Append the cart item to the cart area
+    }
+
+
+    // --- Test line for putACartItem function ---
+    putACartItem("Sample Cart Item Text", 3, "images/charm-red.png"); // Example usage
+    putACartItem("Another Item for Cart", 1, "images/charm-blue.png"); // Another example usage
 
 
 });
