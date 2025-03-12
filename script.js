@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ---  Function to put a Cart Item in "Your Cart" area ---
     function putACartItem(inp_Text, inp_Num, inp_imgURL) {
-        const cartArea = document.querySelector('#dynamic-form-area'); // Select the dynamic form area - we will place cart items here for now
+        const cartArea = document.querySelector('#user-cart-area'); // <---- UPDATED SELECTOR to #user-cart-area
         if (!cartArea) {
             console.error("Cart area not found!");
             return;
