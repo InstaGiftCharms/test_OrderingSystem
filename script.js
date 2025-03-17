@@ -173,10 +173,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productImage = selectedProductInfo.productImage;
                 const productForm = selectedProductInfo.productForm;
                 let quantity = 1; // Default quantity
-                const basePrice = parseFloat(productName.match(/\(([\d.]+)\sPHP\)/)[1]); // Extract price from product name
+                let basePrice = 0;
+                let formData = {};
+
+                // Extract base price from product name
+                const priceMatch = productName.match(/\(([^)]*?)([\d.]+)\sPHP\)/);
+                if (priceMatch && priceMatch[2]) {
+                    basePrice = parseFloat(priceMatch[2]);
+                }
 
                 if (productForm) {
-                    const formData = DynamicForm.getFormData(productForm);
+                    formData = DynamicForm.getFormData(productForm);
                     console.log("Form Data for Product: " + selectedProduct, formData); // Console log only - NO ALERT
                     // Extract quantity if it exists in the form data
                     const quantityField = formData['num_itemQuantity'];
@@ -185,12 +192,30 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (isNaN(quantity) || quantity < 1) {
                             quantity = 1; // Ensure quantity is at least 1
                         }
+                        delete formData['num_itemQuantity']; // Remove quantity from form data display
                     }
                     // alert(`Form data for product "${selectedProduct}" has been logged to the console.`); // REMOVED ALERT
                 } else {
                     console.log(`Added to Cart: ${selectedProduct} (No Options)`); // Console log only - NO ALERT
                     // alert(`Added to Cart: ${selectedProduct} (No Options)`); // REMOVED ALERT
                 }
+
+                // --- Calculate total item price ---
+                let totalItemPrice = basePrice;
+                const formDataValues = Object.values(formData)
+                    .sort()
+                    .map(value => {
+                        const parts = value.split('|');
+                        return parts.length > 1 ? parts[1].trim() : value.trim();
+                    });
+
+                formDataValues.forEach(detail => {
+                    const priceMatch = detail.match(/\(([^)]*?)([\d.]+)\sPHP\)/);
+                    if (priceMatch && priceMatch[2]) {
+                        totalItemPrice += parseFloat(priceMatch[2]);
+                    }
+                });
+
 
                 // --- Add item to the shopping cart ---
                 const cartItem = document.createElement('div');
@@ -209,10 +234,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const itemPrice = document.createElement('div');
                 itemPrice.classList.add('cart-item-price');
-                itemPrice.textContent = `PHP ${basePrice.toFixed(2)} x ${quantity}`;
+                itemPrice.textContent = `PHP ${(totalItemPrice).toFixed(2)} x ${quantity}`;
 
                 itemInfo.appendChild(itemName);
                 itemInfo.appendChild(itemPrice);
+
+                // --- Add form data details to cart item ---
+                formDataValues.forEach(detail => {
+                    const priceMatch = detail.match(/\(([^)]*?)([\d.]+)\sPHP\)/);
+                    let displayText = detail;
+                    if (priceMatch) {
+                        const beforeNumber = detail.substring(0, detail.indexOf(priceMatch[0]));
+                        displayText = beforeNumber.trim();
+                    }
+                    if (displayText) {
+                        const detailDiv = document.createElement('div');
+                        detailDiv.classList.add('cart-item-detail');
+                        detailDiv.textContent = displayText;
+                        itemInfo.appendChild(detailDiv);
+                    }
+                });
+
 
                 const removeButton = document.createElement('button');
                 removeButton.classList.add('cart-item-remove-button');
