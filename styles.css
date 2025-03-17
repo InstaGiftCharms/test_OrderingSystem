@@ -492,11 +492,20 @@ div.radio-checkbox-option label.dynamic-form-label {  /* <----- CORRECTED and MO
     font-weight: bold;
     color: #333;
     font-size: 0.9em;
+    margin-bottom: 5px; /* Add some space below the product name */
 }
 
 .cart-item-price {
     color: #007bff;
     font-size: 0.85em;
+    margin-bottom: 5px; /* Add some space below the price */
+}
+
+.cart-item-detail {
+    font-size: 0.75em; /* Smaller font size for sub-details */
+    color: #555;
+    margin-left: 10px; /* Indent the sub-details slightly */
+    line-height: 1.3; /* Improve readability for multiple lines */
 }
 
 .cart-item-remove-button {
