@@ -18,6 +18,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderTotalPriceValue = document.getElementById('order-total-price-value'); // Get the element to display total price
     const shippingOptionDropdown = document.getElementById('shippingOption'); // Get the shipping option dropdown
     const emptyCartMessage = cartItemsContainer.querySelector('.empty-cart-message'); // Get the empty cart message element
+    const orderReferenceInput = document.getElementById('orderReferenceNumber');
+    const orderReferenceDisplay = document.getElementById('orderReferenceNumberDisplay');
+    const orderDescriptionTextarea = document.getElementById('orderDescription');
+    const orderForm = document.querySelector('form');
+
+    // Function to generate order reference number
+    function generateOrderReference() {
+        const now = new Date();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const year = now.getFullYear().toString().slice(-2);
+        const randomNumber = Math.floor(Math.random() * 4096); // 0 to 4095 (0xFFF)
+        const hexString = randomNumber.toString(16).toUpperCase().padStart(3, '0');
+        return `${month}${day}${year}${hexString}`;
+    }
+
+    // Generate and set the order reference number
+    const orderReference = generateOrderReference();
+    orderReferenceInput.value = orderReference;
+    orderReferenceDisplay.textContent = `#${orderReference}`;
+
 
     // Slideshow functionality
     let slideIndex = 0;
@@ -298,5 +319,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // --- Convert Cart to Text and Add to Order Description before Submit ---
+    orderForm.addEventListener('submit', function(event) {
+        const cartItems = cartItemsContainer.querySelectorAll('.cart-item');
+        let orderDescription = "Order Items:\n";
+
+        if (cartItems.length === 0) {
+            orderDescription += "No items in cart.\n";
+        } else {
+            cartItems.forEach(item => {
+                const itemName = item.querySelector('.cart-item-name').textContent;
+                const itemPrice = item.querySelector('.cart-item-price').textContent;
+                const itemDetails = item.querySelectorAll('.cart-item-detail');
+                orderDescription += `- ${itemName}, ${itemPrice}`;
+                itemDetails.forEach(detail => {
+                    orderDescription += `, ${detail.textContent}`;
+                });
+                orderDescription += "\n";
+            });
+        }
+
+        const shippingOption = shippingOptionDropdown.options[shippingOptionDropdown.selectedIndex].text;
+        orderDescription += `\nShipping Option: ${shippingOption}\n`;
+
+        const totalPrice = document.getElementById('order-total-price-value').textContent;
+        orderDescription += `Total Price: ${totalPrice}\n`;
+
+        orderDescriptionTextarea.value = orderDescription;
+    });
 
 });
