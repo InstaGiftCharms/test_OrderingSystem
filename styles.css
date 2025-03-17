@@ -247,14 +247,25 @@ header {
 }
 
 /* Form Title Styling */
+.form-area .form-title-container {
+    text-align: center; /* Center the container */
+    margin-bottom: 20px; /* Add space below the container */
+}
+
 .form-area .form-title {
     font-size: 1.8em; /* Slightly smaller than store title */
     color: #333;
     margin-top: 0;
-    margin-bottom: 20px; /* Add space below title */
+    margin-bottom: 5px; /* Reduce margin below the main title */
     font-family: 'Poppins', sans-serif; /* Match other titles */
     font-weight: 600; /* Match other titles */
-    text-align: center; /* Center the title above the form */
+}
+
+#orderReferenceNumberDisplay {
+    font-size: 1.05em; /* Even smaller for the reference number */
+    color: #777;
+    margin-top: 0; /* Remove any top margin */
+    display: block; /* Ensure it takes full width and goes to the next line */
 }
 
 /* Shipping Option Explanation Text Styling - FONT SIZE REDUCED to 0.75em */
