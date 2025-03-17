@@ -12,18 +12,18 @@
  * defines a form field and has the following common and type-specific properties:
  *
  * Common Properties (for all field types):
- *   - type:      {string}  - Type of form field. Supported types are: 'label', 'radio', 'checkbox', 'quantity', 'textbox', 'img'.
- *   - id:        {string}  - Unique HTML 'id' attribute for the form field element. This is used to retrieve data using `getFormData`.
- *   - value:     {string}  - For 'label', 'textbox', 'quantity', and 'img' types, this is the default text or placeholder.
- *                           - For 'radio' and 'checkbox' types, this is a semicolon-separated string of options.
- *   - responsePrefix: {string, optional} - A string prefix to be added to the value of this form field when data is extracted using `getFormData`.
- *                                        If not provided, no prefix is added (defaults to "").
+ * - type:      {string}  - Type of form field. Supported types are: 'label', 'radio', 'checkbox', 'quantity', 'textbox', 'img'.
+ * - id:        {string}  - Unique HTML 'id' attribute for the form field element. This is used to retrieve data using `getFormData`.
+ * - value:     {string}  - For 'label', 'textbox', 'quantity', and 'img' types, this is the default text or placeholder.
+ * - For 'radio' and 'checkbox' types, this is a semicolon-separated string of options.
+ * - responsePrefix: {string, optional} - A string prefix to be added to the value of this form field when data is extracted using `getFormData`.
+ * If not provided, no prefix is added (defaults to "").
  *
  * Type-Specific Properties:
- *   - For 'img' type:
- *     - value:    {string} -  Can be just the image URL (e.g., "images/image.png").
- *                          -  Or a string with both visible text and URL, formatted as '"Visible Text":"imageURL"' (e.g., '"Red Button":"images/red-button.png"').
- *                             If the format with visible text is used, the text will be displayed below the image.
+ * - For 'img' type:
+ * - value:    {string} -  Can be just the image URL (e.g., "images/image.png").
+ * -  Or a string with both visible text and URL, formatted as '"Visible Text":"imageURL"' (e.g., '"Red Button":"images/red-button.png"').
+ * If the format with visible text is used, the text will be displayed below the image.
  *
  * --- Image Highlighting Behavior (for 'img' type) ---
  *
@@ -31,8 +31,8 @@
  * - Toggle Highlight: Clicking an image toggles a highlight effect (thick black border).
  * - Highlight Indication: The highlight visually indicates that the image is selected.
  * - Data Extraction: When `getFormData()` is called, for each 'img' type field that is highlighted, the function will return
- *   its associated visible text (if provided in the 'value' property during form configuration) as the field's value.
- *   If no visible text was provided, or if the image is not highlighted, no value (or an empty string based on responsePrefix) will be returned for that image field.
+ * its associated visible text (if provided in the 'value' property during form configuration) as the field's value.
+ * If no visible text was provided, or if the image is not highlighted, no value (or an empty string based on responsePrefix) will be returned for that image field.
  *
  * --- getFormData(formConfig) Method ---
  *
@@ -40,9 +40,9 @@
  *
  * @param {Array<Object>} formConfig - The same form configuration array that was used to generate the form.
  * @returns {Object}                  - An object where keys are the 'id' of each form field from `formConfig`,
- *                                      and values are the user's input or selection for that field, prefixed with the field's 'responsePrefix' (if defined).
- *                                      For 'img' type fields that are highlighted, the value will be the associated visible text (prefixed).
- *                                      For unselected 'radio', 'checkbox', non-highlighted 'img' fields, or empty 'textbox', the value will be just the prefix (or empty string if no prefix).
+ * and values are the user's input or selection for that field, prefixed with the field's 'responsePrefix' (if defined).
+ * For 'img' type fields that are highlighted, the value will be the associated visible text (prefixed).
+ * For unselected 'radio', 'checkbox', non-highlighted 'img' fields, or empty 'textbox', the value will be just the prefix (or empty string if no prefix).
  */
 class DynamicForm {
     /**
