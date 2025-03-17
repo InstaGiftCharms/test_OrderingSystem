@@ -12,7 +12,14 @@
         <h1 class="store-title">InstaGift Charms</h1>  </header>
     <div class="container">
         <div class="form-area">
-            <h2 class="form-title">Order Form</h2>  <form action="https://docs.google.com/forms/d/e/1FAIpQLSfdoSeJim3AAYhcefVW_PAXujSkQkT9ygyge6Nsr71MGbjQOg/formResponse" method="post">
+            <div class="form-title-container">
+                <h2 class="form-title">Order Form</h2>
+                <p id="orderReferenceNumberDisplay"></p>
+            </div>
+            <form action="https://docs.google.com/forms/d/e/1FAIpQLSfdoSeJim3AAYhcefVW_PAXujSkQkT9ygyge6Nsr71MGbjQOg/formResponse" method="post">
+                <div style="display: none;">
+                    <input type="text" id="orderReferenceNumber" name="entry.1812157201" readonly>
+                </div>
                 <div class="form-group">
                     <label for="firstName">First Name:</label>
                     <input type="text" id="firstName" name="entry.1576125739" required>
@@ -68,7 +75,7 @@
                     <div class="form-group">
                         <hr>
                     </div>
-                    <div class="form-group">  <label for="shippingAddress">Shipping Address:</label>  <textarea id="shippingAddress" name="entry.517606747" rows="4" required></textarea> </div>
+                    <div class="form-group">  <label for="shippingAddress">Shipping Address:</label>  <textarea id="shippingAddress" name="entry.517606747" rows="4"></textarea> </div>
                 </div>
 
 
