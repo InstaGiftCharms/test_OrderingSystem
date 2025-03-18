@@ -1,590 +1,372 @@
-/* Current/styles.css */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh; /* <----- KEPT for desktop */
-    background-color: #F8E3C8;
-    overflow: hidden; /* <----- KEPT for desktop */
-}
+// Current/script.js
+// --- Import ConfigParameters if you are using JavaScript modules ---
+// import ConfigParameters from './configParameters.js';  // <--- UNCOMMENT THIS LINE IF YOU ARE USING MODULES
 
-header {
-    padding: 20px 0;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo {
-    max-width: 150px;
-    width: auto;
-    height: auto;
-    display: block;
-    margin-right: 15px;
-    border-radius: 25px;
-}
-
-@media (max-width: 1000px) {  /* <----- CHANGED to 1000px */
-    .logo {
-        display: none;
-    }
-    header {
-        padding: 10px 0;
+// --- Function to Toggle Image Highlight - NOW IN GLOBAL SCOPE ---
+function toggleImageHighlight(imageId) {
+    const imgElement = document.getElementById(imageId);
+    if (imgElement) {
+        imgElement.classList.toggle('highlighted-img'); // Toggle CSS class
     }
 }
 
-.store-title {
-    font-size: 2.2em;
-    color: #333;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-}
 
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Configuration Parameters (if NOT using modules, ConfigParameters is assumed to be globally available from configParameters.js) ---
+    const configParameters = ConfigParameters; // <--- ACCESS ConfigParameters CLASS LIKE THIS
 
-.container {
-    display: flex;
-    width: 80%;
-    max-width: 1200px;
-    margin-bottom: 40px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border-radius: 30px;
-    overflow: hidden;
-    background-color: white;
-    max-height: 85vh;
-}
+    const cartItemsContainer = document.getElementById('cart-items-container'); // Get the container for cart items
+    const orderTotalPriceValue = document.getElementById('order-total-price-value'); // Get the element to display total price
+    const shippingOptionDropdown = document.getElementById('shippingOption'); // Get the shipping option dropdown
+    const emptyCartMessage = cartItemsContainer.querySelector('.empty-cart-message'); // Get the empty cart message element
+    const orderReferenceInput = document.getElementById('orderReferenceNumber');
+    const orderReferenceDisplay = document.getElementById('orderReferenceNumberDisplay');
+    const orderDescriptionTextarea = document.getElementById('orderDescription');
+    const orderForm = document.querySelector('form');
 
-@media (max-width: 1000px) { /* <----- CHANGED to 1000px */
-    .container {
-        flex-direction: column-reverse;
-        width: 95%;
-        margin: 10px;
-        margin-bottom: 40px;
-        max-height: 90vh;
-        border-radius: 25px;
-    }
-    header {
-        padding: 10px 0;
+    // Function to generate order reference number
+    function generateOrderReference() {
+        const now = new Date();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const year = now.getFullYear().toString().slice(-2);
+        const randomNumber = Math.floor(Math.random() * 4096); // 0 to 4095 (0xFFF)
+        const hexString = randomNumber.toString(16).toUpperCase().padStart(3, '0');
+        return `${month}${day}${year}${hexString}`;
     }
 
-}
+    // Generate and set the order reference number
+    const orderReference = generateOrderReference();
+    orderReferenceInput.value = orderReference;
+    orderReferenceDisplay.textContent = `#${orderReference}`;
 
-.form-area {
-    padding: 20px;
-    width: 40%;
-    box-sizing: border-box;
-    background-color: white;
-    overflow-y: auto; /* <----- KEPT for desktop - internal scrolling on desktop */
-    max-height: 100%;
-}
 
-.slideshow-area {
-    width: 60%;
-    box-sizing: border-box;
-}
+    // Slideshow functionality
+    let slideIndex = 0;
+    const slides = configParameters.slideshowImages; // Access static property using class name
+    const slideshowImage = document.getElementById('slideshow-image');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
+    const indicatorsContainer = document.querySelector('.slideshow-indicators');
 
-@media (max-width: 1000px) { /* <----- CHANGED to 1000px */
-    .form-area, .slideshow-area {
-        width: 100%;
-        max-height: none;
+    function updateSlide(index) {
+        slideshowImage.src = slides[index];
+        slideshowImage.alt = `Slide ${index + 1} of ${slides.length}`; // Alt text for accessibility
+        updateIndicators(index); // Update indicators to reflect current slide
     }
-    .slideshow-area {
-        height: 30vh;
+
+    function nextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        updateSlide(slideIndex);
     }
-    .form-area {
-        height: auto;
-        /* overflow-y: auto;  <----- REMOVED for mobile - disable internal scrolling on mobile */
+
+    function prevSlide() {
+        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+        updateSlide(slideIndex);
     }
-}
-
-/* Form Styles - Adjusted Colors and Rounded Corners */
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="tel"],
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    font-size: 1em;
-    box-sizing: border-box;
-    display: block;
-}
-
-/* Optional: Add this section for more consistent <select> styling */
-.form-group select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: white;
-    color: #333;
-}
-
-/* Style for the placeholder option (slightly gray) */
-.form-group select option.placeholder-option {
-    color: #999;
-}
-
-
-.form-group select::-ms-expand {
-    display: none;
-}
-
-
-.form-group textarea {
-    resize: vertical;
-}
-
-.form-group button[type="submit"] {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 50px; /* Pill-shaped button */
-    background-color: #007bff;
-    color: white;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.form-group button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-
-/* Slideshow Styles (Adjusted Indicator Colors) */
-.slideshow-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
-    box-shadow: none;
-    overflow: hidden;
-}
-
-
-#slideshow-image {
-    width: 100%;
-    height: 100%;
-    display: block;
-    transition: opacity 1s ease-in-out;
-    opacity: 1;
-    object-fit: cover;
-    border-radius: inherit;
-}
-
-.slideshow-controls {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transform: translateY(-50%);
-    padding: 0 10px;
-}
-
-.slideshow-controls button {
-    background: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    color: #444;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.slideshow-controls button:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-.slideshow-controls button:focus {
-    outline: none;
-        background-color: rgba(255, 255, 255, 0.95);
-}
-
-
-.slideshow-indicators {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-}
-
-.slideshow-indicators span {
-    display: block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: rgba(220, 220, 220, 0.8);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.slideshow-indicators span.active {
-    background-color: rgba(120, 120, 120, 0.9);
-}
-
-/* Form Title Styling */
-.form-area .form-title-container {
-    text-align: center; /* Center the container */
-    margin-bottom: 20px; /* Add space below the container */
-}
-
-.form-area .form-title {
-    font-size: 1.8em; /* Slightly smaller than store title */
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 5px; /* Reduce margin below the main title */
-    font-family: 'Poppins', sans-serif; /* Match other titles */
-    font-weight: 600; /* Match other titles */
-}
-
-#orderReferenceNumberDisplay {
-    font-size: 1.05em; /* Even smaller for the reference number */
-    color: #777;
-    margin-top: 0; /* Remove any top margin */
-    display: block; /* Ensure it takes full width and goes to the next line */
-}
-
-/* Shipping Option Explanation Text Styling - FONT SIZE REDUCED to 0.75em */
-#shipping-options-explanation p {
-    font-size: 0.75em; /* <----- REDUCED font size to 0.75em */
-    color: #777;      /* Muted dark gray color */
-    line-height: 1.5;     /* Improved line spacing for readability */
-    margin-bottom: 10px; /* Space between paragraphs */
-}
-
-/* Optional: Style the bolded option names within the explanation */
-#shipping-options-explanation p strong {
-    font-weight: bold;       /* Make the bold text even bolder if needed */
-    color: #555;          /* Slightly darker color for emphasis */
-}
-
-/* Payment Instruction Text Styling - Similar to Shipping Explanation */
-#payment-instruction-area {
-    margin-top: 15px; /* Add some space above */
-    margin-bottom: 15px; /* Add some space below */
-    padding: 10px; /* Add some padding around the text */
-    background-color: #f9f9f9; /* Light background color, similar to the form area */
-    border-radius: 10px; /* Soft rounded corners */
-    border: 1px solid #eee; /* Light border */
-}
-
-#payment-instruction-area p {
-    font-size: 0.5em; /* Reduced font size to 0.5em (one third of 1.5em) */
-    color: #777;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    white-space: pre-line; /* Preserve whitespace and line breaks */
-}
-
-#payment-instruction-area p strong {
-    font-weight: bold;
-    color: #555;
-}
-
-
-/* Scrollbar Styling for Form Area (WebKit browsers) */
-.form-area::-webkit-scrollbar {
-    width: 8px; /* Thinner scrollbar */
-}
-
-.form-area::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Light gray track color */
-    border-radius: 10px; /* Rounded track corners */
-}
-
-.form-area::-webkit-scrollbar-thumb {
-    background-color: #aaa; /* Medium gray thumb color */
-    border-radius: 10px; /* Rounded thumb corners */
-    /* Optional: Add hover effect */
-}
-
-.form-area::-webkit-scrollbar-thumb:hover {
-    background-color: #888; /* Darker gray thumb on hover */
-}
-
-/* For Firefox - more limited styling options */
-/* .form-area {
-    scrollbar-color: #aaa #f1f1f1;  /* thumb-color track-color */
-    /* scrollbar-width: thin;  /* 'auto' or 'thin' or 'none' */
-/* } */
-
-/* Total Order Price Area Styling */
-.order-total-area {
-    text-align: right; /* Align price to the right */
-    margin-top: 15px;  /* Add some space above */
-    margin-bottom: 15px; /* Add some space below */
-    padding-top: 10px;
-    border-top: 1px solid #ddd; /* Top border for visual separation */
-}
-
-.order-total-area label {
-    font-size: 1.1em; /* Slightly larger than regular labels */
-    font-weight: bold;
-    color: #333;
-    margin-right: 10px; /* Space between label and price */
-}
-
-.order-total-area .price-value {
-    font-size: 1.2em; /* Even larger for price value */
-    color: #007bff;      /* Brand color or a color to emphasize price */
-    font-weight: bold; /* Make price value bold */
-}
-
-/* Add to Cart Button Styling */
-.add-cart-button {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 50px; /* Pill-shaped button, same as Submit */
-    background-color: #28a745; /* Green color, distinct from Submit button */
-    color: white;
-    font-size: 1.1em; /* Same font size as Submit */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.add-cart-button:hover {
-    background-color: #1e7e34; /* Darker green on hover */
-}
-
-.add-cart-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.5); /* Optional: add focus outline */
-}
-
-
-/* --- Styling for Dynamic Form Elements (Radio, Checkbox, Number, Label, Textbox, Img) --- */
-
-/* Reduced Size for Label, Textbox, Number Inputs */
-#dynamic-form-area .dynamic-form-label,  /* Targets labels within dynamic form area */
-#dynamic-form-area input[type="text"].dynamic-form-input, /* Targets text inputs */
-#dynamic-form-area input[type="number"].dynamic-form-input { /* Targets number inputs */
-    font-size: 0.75em; /* Reduced to 75% of the original size */
-}
-/* You can also reduce padding if inputs are too tall after reducing font-size */
-#dynamic-form-area input[type="text"].dynamic-form-input,
-#dynamic-form-area input[type="number"].dynamic-form-input {
-    padding: 7px; /* Reduced padding - adjust as needed */
-    height: auto; /* <----- ADDED: Reset height to 'auto' to let padding and font-size control height */
-    line-height: normal; /* <----- ADDED: Reset line-height to 'normal' */
-}
-
-
-/* Style labels associated with dynamic form elements - FONT SIZE REDUCED and display adjusted */
-div.radio-checkbox-option label.dynamic-form-label {  /* <----- CORRECTED and MORE SPECIFIC SELECTOR */
-    display: inline-block; /* <-----  Horizontal Alignment Fix - inline-block */
-    font-size: 0.75em; /* Reduced font size to 75% - MATCHED to other dynamic labels/inputs */
-    font-weight: normal;
-    color: #555;
-    vertical-align: middle;
-    margin-left: 5px; /* Space between button/checkbox and text - moved here for better specificity */
-}
-
-/* Styling for radio and checkbox containers to position text to the right */
-.dynamic-form-area div.radio-checkbox-option {
-    display: flex;         /* **IMPORTANT: Use flexbox for horizontal alignment** */
-    align-items: center;     /* Vertically align items in container */
-    margin-bottom: 10px;     /* Space between options */
-}
-
-.dynamic-form-area div.radio-checkbox-option input[type="radio"],
-.dynamic-form-area div.radio-checkbox-option input[type="checkbox"] {
-    margin-right: 5px;      /* Space between button/checkbox and text */
-    margin-bottom: 0;        /* Reset bottom margin from general rule */
-}
-
-
-/* Corrected Number Input Styling - Using #dynamic-form-area ID */
-#dynamic-form-area input[type="number"].dynamic-form-input {  /* <----- CORRECTED SELECTOR using #dynamic-form-area ID */
-    width: calc(100% - 20px);
-    padding: 10px; /* <----- CHANGED padding to 10px to match general inputs */
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    font-size: 1em; /* <----- CHANGED font-size to 1em to match general inputs */
-    box-sizing: border-box;
-    display: block;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin-bottom: 10px;
-    height: auto; /* <----- ADDED: Reset height to 'auto' to let padding and font-size control height - MATCH TEXTBOX */
-    line-height: normal; /* <----- ADDED: Reset line-height to 'normal' - MATCH TEXTBOX */
-}
-
-/* Optional: Adjust spacing for radio and checkboxes in form-group - KEPT */
-.form-group input[type="radio"],
-.form-group input[type="checkbox"] {
-    margin-right: 8px;
-    margin-bottom: 10px;
-    vertical-align: middle;
-}
-
-.form-group label {
-    vertical-align: middle;
-}
-
-
-/* --- Styling for Dynamic Form Image Field (img type) - UPDATED - WITH VISIBLE TEXT LABEL --- */
-.dynamic-form-img-container {
-    display: flex;          /* Use flexbox to align image and text horizontally */
-    align-items: center;     /* Vertically align image and text */
-    margin-bottom: 10px;     /* Space below the image container */
-    justify-content: flex-start; /* Align items to the start of the container */
-}
-
-.dynamic-form-img {
-    width: 75px;           /* Adjust image size as needed */
-    height: 75px;          /* Adjust image size as needed */
-    border-radius: 50%;      /* Make image circular */
-    object-fit: cover;      /* Ensure image covers circular area */
-    margin-right: 10px;      /* Add space between image and text */
-}
-
-.dynamic-form-img-visible-text {
-    font-size: 0.85em;      /* Adjust text size as needed */
-    color: #555;          /* Adjust text color as needed */
-    font-weight: normal;    /* Adjust text weight as needed */
-}
-
-/* --- Styling for Highlighted Dynamic Form Image (img type) --- */
-.dynamic-form-img.highlighted-img {
-    border: 4px solid black; /* Thick black outline */
-    box-sizing: border-box; /* Ensure border is inside, not adding to dimensions */
-}
-
-/* Shopping Cart Area Styles */
-#shopping-cart-area {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    background-color: #FFFACD; /* Light amber yellow */
-}
-
-#shopping-cart-area h3 {
-    font-size: 1.5em;
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-#cart-items-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.cart-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-.cart-item:last-child {
-    border-bottom: none;
-}
-
-.cart-item img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-}
-
-.cart-item-info {
-    flex-grow: 1;
-}
-
-.cart-item-name {
-    font-weight: bold;
-    color: #333;
-    font-size: 0.9em;
-    margin-bottom: 5px; /* Add some space below the product name */
-}
-
-.cart-item-price {
-    color: #007bff;
-    font-size: 0.85em;
-    margin-bottom: 5px; /* Add some space below the price */
-}
-
-.cart-item-detail {
-    font-size: 0.75em; /* Smaller font size for sub-details */
-    color: #555;
-    margin-left: 10px; /* Indent the sub-details slightly */
-    line-height: 1.3; /* Improve readability for multiple lines */
-}
-
-.cart-item-remove-button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.8em;
-    margin-left: 10px;
-}
-
-.cart-item-remove-button:hover {
-    background-color: #c82333;
-}
-
-/* Empty Cart Message Style */
-.empty-cart-message {
-    font-style: italic;
-    color: #777;
-    text-align: center;
-    padding: 10px;
-}
-
-/* Payment Instruction Text Styling */
-#payment-instruction-area {
-    margin-top: 15px; /* Add some space above */
-    margin-bottom: 15px; /* Add some space below */
-    padding: 10px; /* Add some padding around the text */
-    background-color: #f9f9f9; /* Light background color, similar to the form area */
-    border-radius: 10px; /* Soft rounded corners */
-    border: 1px solid #eee; /* Light border */
-}
-
-#payment-instruction-area p {
-    font-size: 0.9em; /* Reduced font size to 0.5em (one third of 1.5em) */
-    color: #777;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    white-space: pre-line; /* Preserve whitespace and line breaks */
-}
-
-#payment-instruction-area p strong {
-    font-weight: bold;
-    color: #555;
-}
+
+    function createIndicators() {
+        slides.forEach((_, index) => {
+            const indicator = document.createElement('span');
+            indicator.classList.add('slideshow-indicator');
+            indicator.addEventListener('click', () => {
+                slideIndex = index;
+                updateSlide(slideIndex);
+            });
+            indicatorsContainer.appendChild(indicator);
+        });
+        updateIndicators(0); // Highlight the first indicator initially
+    }
+
+    function updateIndicators(currentIndex) {
+        const indicators = document.querySelectorAll('.slideshow-indicators span');
+        indicators.forEach((indicator, index) => {
+            indicator.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+
+    nextButton.addEventListener('click', nextSlide);
+    prevButton.addEventListener('click', prevSlide);
+
+    // Initialize slideshow
+    createIndicators();
+    updateSlide(slideIndex);
+    setInterval(nextSlide, configParameters.slideshowInterval); // Access static property
+
+    // Populate shipping options dynamically
+    configParameters.shippingOptions.forEach(option => { // Access static property
+        let optionElement = document.createElement('option');
+        optionElement.value = option.optionName;
+        optionElement.textContent = `${option.optionName} ${option.optionCost > 0 ? '(PHP ' + option.optionCost.toFixed(2) + ')' : ''}`;
+        shippingOptionDropdown.appendChild(optionElement);
+    });
+
+    // Set Shipping Options Explanation Text
+    const shippingExplanation = document.getElementById('shipping-options-explanation');
+    let explanationHTML = '';
+    configParameters.shippingOptionText.forEach(paragraph => { // Access static property
+        explanationHTML += `<p>${paragraph}</p>`;
+    });
+    shippingExplanation.innerHTML = explanationHTML;
+
+    // Set Payment Instruction Text
+    const paymentInstructionArea = document.getElementById('payment-instruction-area');
+    const paymentInstructionTextElement = document.getElementById('payment-instruction-text');
+    let paymentInstructionHTML = '';
+    configParameters.paymentInstructionText.forEach(paragraph => { // Access static property
+        paymentInstructionHTML += `<p>${paragraph}</p>`;
+    });
+
+
+    paymentInstructionTextElement.innerHTML = paymentInstructionHTML;
+    paymentInstructionArea.style.display = 'block'; // Ensure the section is visible
+
+    // Create the payment instruction header
+    const paymentHeader = document.createElement('h3');
+    paymentHeader.textContent = `Payment Instruction for Order #${orderReference}`;
+    paymentHeader.classList.add('payment-instruction-header'); // Add a class for styling
+
+    // Insert the header at the beginning of the payment instruction area
+    paymentInstructionArea.insertBefore(paymentHeader, paymentInstructionArea.firstChild);
+
+
+    // --- Function to calculate the total price of items in the cart ---
+    function calculateCartTotal() {
+        let cartTotal = 0;
+        const cartItems = cartItemsContainer.querySelectorAll('.cart-item');
+
+        if (cartItems.length === 0) {
+            if (emptyCartMessage) {
+                emptyCartMessage.style.display = 'block'; // Show the empty cart message
+            } else {
+                cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty. Please add items using the product selection section of the form.</p>';
+            }
+        } else {
+            if (emptyCartMessage) {
+                emptyCartMessage.style.display = 'none'; // Hide the empty cart message if items exist
+            }
+            cartItems.forEach(item => {
+                const priceText = item.querySelector('.cart-item-price').textContent;
+                const parts = priceText.split(' x ');
+                if (parts.length === 2) {
+                    const price = parseFloat(parts[0].replace('PHP ', ''));
+                    const quantity = parseInt(parts[1]);
+                    if (!isNaN(price) && !isNaN(quantity)) {
+                        cartTotal += price * quantity;
+                    }
+                }
+            });
+        }
+
+
+        // --- Add Shipping Cost ---
+        let shippingCost = 0;
+        const selectedShippingOption = shippingOptionDropdown.value;
+        if (selectedShippingOption) {
+            const selectedShipping = configParameters.shippingOptions.find(option => option.optionName === selectedShippingOption); // Access static property
+            if (selectedShipping) {
+                shippingCost = selectedShipping.optionCost;
+            }
+        }
+
+        const totalOrderPrice = cartTotal + shippingCost;
+        orderTotalPriceValue.textContent = `PHP ${totalOrderPrice.toFixed(2)}`;
+    }
+
+
+    // --- Conditional Display Logic for Shipping Address ---
+    const shippingAddressField = document.querySelector('.form-group:has(> label[for="shippingAddress"])'); // Selects the form-group containing Shipping Address
+    function toggleShippingAddressVisibility() {
+        const selectedShippingOption = shippingOptionDropdown.value;
+        // --- MODIFIED CONDITION: Check if the selected option includes "shipping" (case-insensitive) ---
+        if (selectedShippingOption.toLowerCase().includes("shipping")) {
+            shippingAddressField.style.display = 'block'; // Show if shipping option is selected
+        } else {
+            shippingAddressField.style.display = 'none'; // Hide otherwise
+        }
+    }
+
+    shippingOptionDropdown.addEventListener('change', toggleShippingAddressVisibility);
+    // --- Call calculateCartTotal when shipping option changes ---
+    shippingOptionDropdown.addEventListener('change', calculateCartTotal);
+    toggleShippingAddressVisibility(); // Initial call to set correct visibility on page load
+    calculateCartTotal(); // Initial call to display empty cart message and total
+
+
+    // --- Populate Product Selection Dropdown ---
+    const productDropdown = document.getElementById('productSelection');
+    configParameters.productInfo.forEach(product => { // Access static property
+        let option = document.createElement('option');
+        option.value = product.productName;
+        option.textContent = product.productName;
+        productDropdown.appendChild(option);
+    });
+
+    // --- Add to Cart Button Functionality  ---
+    const addToCartButton = document.getElementById('add-to-cart-button'); // --- CORRECTED ID to 'add-to-cart-button' to match your code
+    addToCartButton.addEventListener('click', function() {
+        const selectedProduct = productDropdown.value;
+        if (selectedProduct) {
+            // --- Get Dynamic Form Data ---
+            const selectedProductInfo = configParameters.productInfo.find(product => product.productName === selectedProduct); // Access static property
+            if (selectedProductInfo) {
+                const productName = selectedProductInfo.productName;
+                const productImage = selectedProductInfo.productImage;
+                const productForm = selectedProductInfo.productForm;
+                let quantity = 1; // Default quantity
+                let basePrice = 0;
+                let formData = {};
+
+                // Extract base price from product name
+                const priceMatch = productName.match(/\(([^)]*?)([\d.]+)\sPHP\)/);
+                if (priceMatch && priceMatch[2]) {
+                    basePrice = parseFloat(priceMatch[2]);
+                }
+
+                if (productForm) {
+                    formData = DynamicForm.getFormData(productForm);
+                    console.log("Form Data for Product: " + selectedProduct, formData); // Console log only - NO ALERT
+                    // Extract quantity if it exists in the form data
+                    const quantityField = formData['num_itemQuantity'];
+                    if (quantityField) {
+                        quantity = parseInt(quantityField.split(': ')[1]); // Assuming format '05|Quantity: X'
+                        if (isNaN(quantity) || quantity < 1) {
+                            quantity = 1; // Ensure quantity is at least 1
+                        }
+                        delete formData['num_itemQuantity']; // Remove quantity from form data display
+                    }
+                    // alert(`Form data for product "${selectedProduct}" has been logged to the console.`); // REMOVED ALERT
+                } else {
+                    console.log(`Added to Cart: ${selectedProduct} (No Options)`); // Console log only - NO ALERT
+                    // alert(`Added to Cart: ${selectedProduct} (No Options)`); // REMOVED ALERT
+                }
+
+                // --- Calculate total item price ---
+                let totalItemPrice = basePrice;
+                const formDataValues = Object.values(formData)
+                    .sort()
+                    .map(value => {
+                        const parts = value.split('|');
+                        return parts.length > 1 ? parts[1].trim() : value.trim();
+                    });
+
+                formDataValues.forEach(detail => {
+                    const priceMatch = detail.match(/\(([^)]*?)([\d.]+)\sPHP\)/);
+                    if (priceMatch && priceMatch[2]) {
+                        totalItemPrice += parseFloat(priceMatch[2]);
+                    }
+                });
+
+
+                // --- Add item to the shopping cart ---
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+
+                const img = document.createElement('img');
+                img.src = productImage;
+                img.alt = productName;
+
+                const itemInfo = document.createElement('div');
+                itemInfo.classList.add('cart-item-info');
+
+                const itemName = document.createElement('div');
+                itemName.classList.add('cart-item-name');
+                itemName.textContent = productName.split('(')[0].trim(); // Display only the name
+
+                const itemPrice = document.createElement('div');
+                itemPrice.classList.add('cart-item-price');
+                itemPrice.textContent = `PHP ${(totalItemPrice).toFixed(2)} x ${quantity}`;
+
+                itemInfo.appendChild(itemName);
+                itemInfo.appendChild(itemPrice);
+
+                // --- Add form data details to cart item ---
+                formDataValues.forEach(detail => {
+                    const priceMatch = detail.match(/\(([^)]*?)([\d.]+)\sPHP\)/);
+                    let displayText = detail;
+                    if (priceMatch) {
+                        const beforeNumber = detail.substring(0, detail.indexOf(priceMatch[0]));
+                        displayText = beforeNumber.trim();
+                    }
+                    if (displayText) {
+                        const detailDiv = document.createElement('div');
+                        detailDiv.classList.add('cart-item-detail');
+                        detailDiv.textContent = displayText;
+                        itemInfo.appendChild(detailDiv);
+                    }
+                });
+
+
+                const removeButton = document.createElement('button');
+                removeButton.classList.add('cart-item-remove-button');
+                removeButton.textContent = 'REMOVE';
+                removeButton.addEventListener('click', function() {
+                    cartItemsContainer.removeChild(cartItem);
+                    calculateCartTotal(); // Recalculate total after removing item
+                });
+
+                cartItem.appendChild(img);
+                cartItem.appendChild(itemInfo);
+                cartItem.appendChild(removeButton);
+
+                cartItemsContainer.appendChild(cartItem);
+                calculateCartTotal(); // Calculate total after adding item
+            } else {
+                console.error(`Product information not found for: ${selectedProduct}`);
+            }
+        } else {
+            // alert("Please select a product before adding to cart."); // KEPT ALERT - this one is important for user guidance if no product selected
+        }
+    });
+
+
+    // --- Dynamic Form Population based on Product Selection ---
+    const productSelectionDropdown = document.getElementById('productSelection');
+    const dynamicFormArea = document.getElementById('dynamic-form-area');
+
+    productSelectionDropdown.addEventListener('change', function() {
+        const selectedProductName = productSelectionDropdown.value;
+        dynamicFormArea.innerHTML = ''; // Clear previous form
+
+        if (selectedProductName) {
+            const selectedProductInfo = configParameters.productInfo.find(product => product.productName === selectedProductName); // Access static property
+            if (selectedProductInfo && selectedProductInfo.productForm) {
+                const formHTML = DynamicForm.drawform(selectedProductInfo.productForm);
+                dynamicFormArea.innerHTML = formHTML;
+            } else {
+                dynamicFormArea.innerHTML = '<p>No additional options for this product.</p>'; // Optional message if no form defined
+            }
+        }
+    });
+
+    // --- Convert Cart to Text and Add to Order Description before Submit ---
+    orderForm.addEventListener('submit', function(event) {
+        const cartItems = cartItemsContainer.querySelectorAll('.cart-item');
+        let orderDescription = "Order Items:\n";
+
+        if (cartItems.length === 0) {
+            orderDescription += "No items in cart.\n";
+        } else {
+            cartItems.forEach(item => {
+                const itemName = item.querySelector('.cart-item-name').textContent;
+                const itemPrice = item.querySelector('.cart-item-price').textContent;
+                const itemDetails = item.querySelectorAll('.cart-item-detail');
+                orderDescription += `- ${itemName}, ${itemPrice}`;
+                itemDetails.forEach(detail => {
+                    orderDescription += `, ${detail.textContent}`;
+                });
+                orderDescription += "\n";
+            });
+        }
+
+        const shippingOption = shippingOptionDropdown.options[shippingOptionDropdown.selectedIndex].text;
+        orderDescription += `\nShipping Option: ${shippingOption}\n`;
+
+        const totalPrice = document.getElementById('order-total-price-value').textContent;
+        orderDescription += `Total Price: ${totalPrice}\n`;
+
+        orderDescriptionTextarea.value = orderDescription;
+    });
+
+});
