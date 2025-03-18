@@ -1,3 +1,4 @@
+/* Current/styles.css */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -282,6 +283,29 @@ header {
     color: #555;          /* Slightly darker color for emphasis */
 }
 
+/* Payment Instruction Text Styling - Similar to Shipping Explanation */
+#payment-instruction-area {
+    margin-top: 15px; /* Add some space above */
+    margin-bottom: 15px; /* Add some space below */
+    padding: 10px; /* Add some padding around the text */
+    background-color: #f9f9f9; /* Light background color, similar to the form area */
+    border-radius: 10px; /* Soft rounded corners */
+    border: 1px solid #eee; /* Light border */
+}
+
+#payment-instruction-area p {
+    font-size: 0.5em; /* Reduced font size to 0.5em (one third of 1.5em) */
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    white-space: pre-line; /* Preserve whitespace and line breaks */
+}
+
+#payment-instruction-area p strong {
+    font-weight: bold;
+    color: #555;
+}
+
 
 /* Scrollbar Styling for Form Area (WebKit browsers) */
 .form-area::-webkit-scrollbar {
@@ -540,4 +564,27 @@ div.radio-checkbox-option label.dynamic-form-label {  /* <----- CORRECTED and MO
     color: #777;
     text-align: center;
     padding: 10px;
+}
+
+/* Payment Instruction Text Styling */
+#payment-instruction-area {
+    margin-top: 15px; /* Add some space above */
+    margin-bottom: 15px; /* Add some space below */
+    padding: 10px; /* Add some padding around the text */
+    background-color: #f9f9f9; /* Light background color, similar to the form area */
+    border-radius: 10px; /* Soft rounded corners */
+    border: 1px solid #eee; /* Light border */
+}
+
+#payment-instruction-area p {
+    font-size: 0.9em; /* Reduced font size to 0.5em (one third of 1.5em) */
+    color: #777;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    white-space: pre-line; /* Preserve whitespace and line breaks */
+}
+
+#payment-instruction-area p strong {
+    font-weight: bold;
+    color: #555;
 }
