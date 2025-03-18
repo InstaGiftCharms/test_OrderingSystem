@@ -1,33 +1,62 @@
+// Current/configParameters.js
 class ConfigParameters {
     static slideshowImages = [
-        // Populate image URLs here. Example URLs below:
+        // Array of image URLs for the slideshow.
+        // Example URLs below (replace with your actual image URLs):
         "https://lh3.googleusercontent.com/pw/AP1GczMhUvNEaDbxrcPonTA-Bi2g8Kv9h469BM7QavVE5zEFwbhI2RhFa4Ut8rp0-MogwaYzVThe_5gUJbXcHT96mqQw0TdvNXioPYbZavAJeC5zmubHSShLT3YT48CNaH4-KeA1qyn3BsWRhIKYVVJphX0Xew=w950-h950-s-no-gm?authuser=0",
         "https://lh3.googleusercontent.com/pw/AP1GczOqHOeBqKu_iNl8mKWvRFRsEAXIfQSw1SzKzlbKU0HacDUc8nepvRHzHVXhijx4QVjYOUaimJIccbuZsdakl7N_gqmZ4wZVdLUt3x3qG63LsZwjqplrryTn81cZzwOmoiA0MCmcKAelUI8dt6swXdfFXA=w950-h950-s-no-gm?authuser=0",
         "https://lh3.googleusercontent.com/pw/AP1GczM1V24F4vzVdQuqDhjqT39kb7Q9k1ADHELHA9YG7euWfzuPuLlrtNzBttFbz_Aa_JEeNTHOmelg9jyL01aSflztVKBWXjVlNmQ2hobWXm_m5mhr-Zzl_kZP1zacBVhvWC3NzbM7Bd47YwI9rCziNjID5Q=w950-h950-s-no-gm?authuser=0",
         "https://lh3.googleusercontent.com/pw/AP1GczNoKPXDHc6Qk563FtyV29dE3O3DLi_H18_yB1MF58ijTWsFhLYVh9zvUEwWEpFSSrRXygkjbDI6sm41L-0Im3epBjeVxVgI1CGBMY0D1OD8_RowWan-IKc-mCHSaSQgLSxeBsDp3ceLi_I9xykHRDWcVQ=w950-h950-s-no-gm?authuser=0"
     ];
-    static slideshowInterval = 3000; // Time in milliseconds for each slide (3 seconds)
+    static slideshowInterval = 3000; // Time in milliseconds to display each slide (e.g., 3000ms = 3 seconds).
     static requiredFields = [
+        // Array of IDs of the input fields that are required for the form submission.
         "firstName",
         "lastName",
         "email",
         "shippingOption",
         "orderDescription"
     ];
-    static shippingOptions = [ // Changed to Javascript object array
+    static shippingOptions = [
+        // Array of shipping options available to the user.
+        // Each object has:
+        //   - optionName: The name of the shipping option (string).
+        //   - optionCost: The cost of the shipping option (number).
         { optionName: "Pickup in-person", optionCost: 0 },
         { optionName: "Pickup via On-Demand Delivery (Lalamove, Grab, etc.)", optionCost: 0 },
         { optionName: "Standard Shipping", optionCost: 250 }
     ];
-    static shippingOptionText = [  // Changed to an array of strings
+    static shippingOptionText = [
+        // Array of strings containing paragraphs that explain the shipping options to the user.
         "Please select the most suitable shipping option for your order:",
         "**Pickup in-person:** Select this if you will pick up your order directly from our store. We will notify you when it's ready for collection.",
         "**Pickup via On-Demand Delivery (Lalamove, Grab, etc.):** Choose this to arrange for a service like Lalamove or Grab to collect your order from our store and deliver to you. You book and pay for this service.",
         `**Standard Shipping:** Select this to have your order shipped to your address via **our preferred deliver service**. Shipping fees and delivery times will apply.`
     ];
 
+    static paymentInstructionText = [
+        // Array of strings containing paragraphs with payment instructions for the user.
+        "Please select one of the payment options provided below to complete your order:",
+        "PayMaya: 0915-392-8725",
+		"Bank Transfer (BPI): 0446-1872-59",
+        " ",
+		"After you have made your payment, kindly email us a screenshot or photo of your payment confirmation",
+		"Email Address: instagiftcharms@gmail.com",
+		"Email Subject: PROOF OF PAYMENT [Full Name] [Order Number]"
+    ];
+
     // --- Product Information ---
     static productInfo = [
+        // Array of product objects. Each object contains information about a specific product.
+        // Each object has:
+        //   - productName: The name of the product (string), including the base price in parentheses.
+        //   - productImage: URL of the image for the product (string).
+        //   - productForm: An array defining the dynamic form elements for this product (array of objects).
+        //     Each object in productForm defines a form field with properties like:
+        //       - type: The type of form field ('label', 'textbox', 'quantity', 'radio', 'checkbox', 'img').
+        //       - id: Unique ID for the form field (string).
+        //       - value: Default value or placeholder text (string). For 'radio' and 'checkbox', it's a semicolon-separated list of options. For 'img', it can be a URL or '"Visible Text":"imageURL"'.
+        //       - responsePrefix: Optional prefix to add to the form field value when submitted (string).
         {
             productName: "Solid Letter Name KeyChains (150.00 PHP)",
             productImage: "https://lh3.googleusercontent.com/pw/AP1GczNCGWT6EZ5yV-SeNfZ0-YbV96-4AqQAug30GouSFn9l9R17E0xbmlmof9Dg64aQrv2BC0hYenO95GrCmFEBDaNaoptc0gnz6NSoIOtFrhS6kOtsk24mLH3k-EMAZiIiaSpC8mV40V-pyWJKnKsyWLS4hQ=w600-h600-s-no-gm?authuser=0", // Placeholder image URL
@@ -41,8 +70,8 @@ class ConfigParameters {
                 { type: 'img', id: 'img_charmAddon03', value: '"Small Charms (+ 5.00 PHP)":"https://lh3.googleusercontent.com/pw/AP1GczNCGWT6EZ5yV-SeNfZ0-YbV96-4AqQAug30GouSFn9l9R17E0xbmlmof9Dg64aQrv2BC0hYenO95GrCmFEBDaNaoptc0gnz6NSoIOtFrhS6kOtsk24mLH3k-EMAZiIiaSpC8mV40V-pyWJKnKsyWLS4hQ=w600-h600-s-no-gm?authuser=0"', responsePrefix:'03|Include ' },
                 { type: 'img', id: 'img_charmAddon04', value: '"Phone Hook (+ 25.00 PHP)":"https://lh3.googleusercontent.com/pw/AP1GczNCGWT6EZ5yV-SeNfZ0-YbV96-4AqQAug30GouSFn9l9R17E0xbmlmof9Dg64aQrv2BC0hYenO95GrCmFEBDaNaoptc0gnz6NSoIOtFrhS6kOtsk24mLH3k-EMAZiIiaSpC8mV40V-pyWJKnKsyWLS4hQ=w600-h600-s-no-gm?authuser=0"', responsePrefix:'04|Include ' },
                 { type: 'label', id: 'lbl_04', value: 'Additional Order Request:'},
-		{ type: 'textbox', id: 'txt_additionalReq', value: 'Type here', responsePrefix:'05|Additional Request to ' },
-		{ type: 'quantity', id: 'num_itemQuantity', value: 'Item Quantity', responsePrefix:'06|Quantity: ' }
+				{ type: 'textbox', id: 'txt_additionalReq', value: 'Type here', responsePrefix:'05|Additional Request: ' },
+				{ type: 'quantity', id: 'num_itemQuantity', value: 'Item Quantity', responsePrefix:'06|Quantity: ' }
             ]
         },
     ];
