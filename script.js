@@ -323,6 +323,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 cartItemsContainer.appendChild(cartItem);
                 calculateCartTotal(); // Calculate total after adding item
+
+                // --- Reset product info area ---
+                productDropdown.selectedIndex = 0; // Reset the dropdown to the first option
+                dynamicFormArea.innerHTML = ''; // Clear the dynamic form area
+                productDropdown.focus(); // Set focus back to the product dropdown
             } else {
                 console.error(`Product information not found for: ${selectedProduct}`);
             }
