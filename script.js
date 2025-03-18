@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const orderReferenceDisplay = document.getElementById('orderReferenceNumberDisplay');
     const orderDescriptionTextarea = document.getElementById('orderDescription');
     const orderForm = document.querySelector('form');
+    const submitButton = orderForm.querySelector('button[type="submit"]'); // Get the submit button
+    submitButton.disabled = true; // Disable the submit button on initial load
 
     // Function to generate order reference number
     function generateOrderReference() {
@@ -118,6 +120,9 @@ document.addEventListener('DOMContentLoaded', function() {
         paymentInstructionHTML += `<p>${paragraph}</p>`;
     });
 
+    // Add the two new lines to the payment instruction HTML
+    paymentInstructionHTML += `<p id="emailSubjectLine"></p>`;
+
 
     paymentInstructionTextElement.innerHTML = paymentInstructionHTML;
     paymentInstructionArea.style.display = 'block'; // Ensure the section is visible
@@ -142,6 +147,9 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty. Please add items using the product selection section of the form.</p>';
             }
+            if (submitButton) {
+                submitButton.disabled = true; // Disable submit button if cart is empty
+            }
         } else {
             if (emptyCartMessage) {
                 emptyCartMessage.style.display = 'none'; // Hide the empty cart message if items exist
@@ -157,6 +165,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
+            if (submitButton) {
+                submitButton.disabled = false; // Enable submit button if cart has items
+            }
         }
 
 
@@ -367,6 +378,13 @@ document.addEventListener('DOMContentLoaded', function() {
         orderDescription += `Total Price: ${totalPrice}\n`;
 
         orderDescriptionTextarea.value = orderDescription;
+
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const orderReferenceNumber = document.getElementById('orderReferenceNumber').value;
+        const emailSubject = `PROOF OF PAYMENT ${firstName} ${lastName} ${orderReferenceNumber}`;
+        document.getElementById('emailSubjectLine').textContent = `Email Subject: ${emailSubject}`;
+        // You would typically handle sending this email using a server-side process.
     });
 
 });
