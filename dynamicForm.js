@@ -87,7 +87,7 @@ class DynamicForm {
                     </div>`;
                 });
             } else if (field.type === 'quantity') {
-                formHTML += `<input type="number" id="${field.id}" name="${field.id}" placeholder="${field.value}" value="0" class="dynamic-form-input">`;
+                formHTML += `<input type="number" id="${field.id}" name="${field.id}" placeholder="${field.value}" value="1" class="dynamic-form-input">`;
             } else if (field.type === 'textbox') {
                 formHTML += `<input type="text" id="${field.id}" name="${field.id}" placeholder="${field.value}" class="dynamic-form-input">`;
             } else if (field.type === 'img') {
