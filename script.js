@@ -1,3 +1,4 @@
+// Current/script.js
 // --- Import ConfigParameters if you are using JavaScript modules ---
 // import ConfigParameters from './configParameters.js';  // <--- UNCOMMENT THIS LINE IF YOU ARE USING MODULES
 
@@ -108,6 +109,26 @@ document.addEventListener('DOMContentLoaded', function() {
         explanationHTML += `<p>${paragraph}</p>`;
     });
     shippingExplanation.innerHTML = explanationHTML;
+
+    // Set Payment Instruction Text
+    const paymentInstructionArea = document.getElementById('payment-instruction-area');
+    const paymentInstructionTextElement = document.getElementById('payment-instruction-text');
+    let paymentInstructionHTML = '';
+    configParameters.paymentInstructionText.forEach(paragraph => { // Access static property
+        paymentInstructionHTML += `<p>${paragraph}</p>`;
+    });
+
+
+    paymentInstructionTextElement.innerHTML = paymentInstructionHTML;
+    paymentInstructionArea.style.display = 'block'; // Ensure the section is visible
+
+    // Create the payment instruction header
+    const paymentHeader = document.createElement('h3');
+    paymentHeader.textContent = `Payment Instruction for Order #${orderReference}`;
+    paymentHeader.classList.add('payment-instruction-header'); // Add a class for styling
+
+    // Insert the header at the beginning of the payment instruction area
+    paymentInstructionArea.insertBefore(paymentHeader, paymentInstructionArea.firstChild);
 
 
     // --- Function to calculate the total price of items in the cart ---
